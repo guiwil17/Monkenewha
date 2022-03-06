@@ -11,7 +11,7 @@ Vue.use(VueCompositionAPI)
 const app = createApp({
   router,
   pinia: createPinia(),
-  vuetify,
+  vuetify: vuetify,
   render: () => h(App)
 })
 app.use(PiniaVuePlugin)

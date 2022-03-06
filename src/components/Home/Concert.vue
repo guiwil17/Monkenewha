@@ -5,14 +5,14 @@
        justify="center"
         align="center"
       >    
-       <v-col align="center" justify="center" cols="12" class="top">
+       <v-col align="center" justify="center" cols="4">
     <h1>Ici il y aura la présentation du groupe</h1>
       </v-col>
-       <v-col align="center" justify="center" cols="6">
+       <v-col align="center" justify="center" cols="4">
     <h1>Ici il y aura la présentation du groupe</h1>
       </v-col>
          
-       <v-col align="center" justify="center" cols="6">
+       <v-col align="center" justify="center" cols="4">
     <h1>Ici il y aura la présentation du groupe</h1>
       </v-col>
        </v-row>
@@ -23,11 +23,8 @@
 <style scoped>
 .test {
  height: 100vh;
- background-color: #e9e9e9;
+ background-color: #EFEFEF;
  color: black;
 
-}
-.top{
-    height: 40vh;
 }
 </style>
