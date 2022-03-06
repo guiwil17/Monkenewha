@@ -39,7 +39,7 @@
          
        <v-col align="center" justify="center" cols="6">
       <v-btn elevation="2" color="warning">
-        <v-icon small>fab fa-search</v-icon>
+        <font-awesome-icon icon="coffee" />
       </v-btn>
       </v-col>
        </v-row>
