@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import Home from '@/components/Home.vue'
 import Groupe from '@/components/Home/Groupe.vue'
+import Blog from '@/components/Home/Blog.vue'
 import Concert from '@/components/Home/Concert.vue'
 
 </script>
@@ -9,7 +10,8 @@ import Concert from '@/components/Home/Concert.vue'
 <div>
     <Home />    
     <Groupe />
-    <Concert />    
+    <Blog />  
+    <Concert />  
 </div>
 </template>
 

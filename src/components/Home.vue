@@ -39,7 +39,7 @@
          
        <v-col align="center" justify="center" cols="6">
       <v-btn elevation="2" color="warning">
-        <font-awesome-icon icon="coffee" />
+<font-awesome-icon icon="ticket" />
       </v-btn>
       </v-col>
        </v-row>
