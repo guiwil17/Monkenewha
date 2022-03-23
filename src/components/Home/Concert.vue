@@ -1,4 +1,8 @@
-<script setup>
+<script setup lang="ts">
+ import { Glide, GlideSlide } from 'vue-glide-js'
+import 'vue-glide-js/dist/vue-glide.css'
+
+var active = 3
 
 </script>
 
@@ -14,68 +18,53 @@
              </v-col>
        </v-row>
    </v-container>
-  <v-container >
+     <v-container >
        <v-row
-       justify="center"
-        align="center"
-      >    
-       <v-col align="center" justify="center" cols="12">
+        justify="center"
+        align="center">    
+       <v-col   justify="center"
+        align="center" cols="12">
 <v-sheet
-    class="mx-auto"
     elevation="8"
+    width="80vw"
   >
-    <v-slide-group
-      v-model="model"      
-      show-arrows    
-    >
-     <template v-slot:prev="{ on, attrs }">
-      <v-btn
-      icon
-        color="warning"
-        v-bind="attrs"
-        v-on="on"
+ 
+   <vue-glide height="100vh" v-model="active" control="true" perView=2>        
+    <vue-glide-slide
+      v-for="i in 10"      
+      :key="i"
       >
-      <font-awesome-icon icon="angle-left" />
-      </v-btn>
-    </template>
-    <template v-slot:next="{ on, attrs }">
-      <v-btn      
-      icon
-        color="warning"
-        v-bind="attrs"
-        v-on="on"
-      >
-      <font-awesome-icon icon="angle-right" />
-</v-btn>
-    </template>
-      <v-slide-item
-        v-for="n in 15"
-        :key="n"
-        v-slot="{ active, toggle }"
-      >
-        <v-card
-          :color="active ? 'primary' : 'grey lighten-1'"
+    <v-card
           class="ma-12"
-          height="80vh"
-          width="50vw"
-          @click="toggle"
+          height="70vh"
         >
           <v-row
-            class="fill-height"
             align="center"
             justify="center"
           >         
+                    <v-col align="center" justify="center" cols="12"> 
+                      <h2>Reims Arena </h2>
+
+                      <hr class="hr"/>                      
+</v-col>
           <v-col align="center" justify="center" cols="12"> 
               <v-img src="https://remeng.rosselcdn.net/sites/default/files/dpistyles_v2/ena_16_9_extra_big/2019/08/29/node_89564/11018792/public/2019/08/29/B9720726729Z.1_20190829202512_000%2BGAREB9GAM.2-0.jpg?itok=b2AfeySY1567147356"></v-img>
           </v-col>
            <v-col align="center" justify="center" cols="12"> 
-              Coucou              
+              Coucou  + {{i}}           
           </v-col>
           </v-row>
         </v-card>
-      </v-slide-item>
-    </v-slide-group>
-  </v-sheet>
+
+    </vue-glide-slide>            
+   <template slot="control">
+        <v-btn data-glide-dir="<" color="warning" class="ma-5"><font-awesome-icon icon="angle-left" /></v-btn>
+
+        <v-btn data-glide-dir=">" color="warning"><font-awesome-icon icon="angle-right" /></v-btn>
+      </template>
+  </vue-glide>
+       
+   </v-sheet>
       </v-col>
        </v-row>
   </v-container>
@@ -93,6 +82,13 @@
   height: 80%;
   width: 100%;
 }
+
+.hr {
+ rotate: 90%;
+}
+
+.fleche{
+margin-right: 30px;}
 
 
 </style>

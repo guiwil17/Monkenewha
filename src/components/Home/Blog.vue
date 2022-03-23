@@ -1,4 +1,4 @@
-<script setup>
+<script setup lan="ts">
 var items = [
           {
             src: 'https://www.neozone.org/blog/wp-content/uploads/schema-and-structured-data-for-wp/baleine-chili-1200x675.jpg',

@@ -7,6 +7,8 @@ import { faCoffee, faTicket,faAngleRight, faAngleLeft, faBook  } from '@fortawes
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import App from './App.vue'
 import router from './router'
+import VueGlide from 'vue-glide-js'
+import 'vue-glide-js/dist/vue-glide.css'
 
 library.add(faCoffee, faAngleLeft, faBook)
 library.add(faTicket)
@@ -15,6 +17,8 @@ library.add(faAngleRight)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 Vue.use(VueCompositionAPI)
+Vue.use(VueGlide)
+
 
 const app = createApp({
   router,
