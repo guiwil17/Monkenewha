@@ -5,7 +5,8 @@ var valid = true;
 
 var name: string = '';
 var email: string = '';
-var prenom = '';
+var prenom: string = '';
+var contenu: string = '';
 
 var nomPrenomRules = [(v: string) => !!v || 'Merci de remplir le champs'];
 var  emailRules = [(v: string) => !!v || 'Merci de remplir le champs', (v: string) => /.+@.+\..+/.test(v) || 'Merci de rentrer un email valide'];
@@ -24,29 +25,29 @@ function validate (this: any) {
             </v-col>
         </v-row>
     </v-container>
-    <v-container>
+    <v-container >
         <v-row justify="center" align="center">
-            <v-col justify="center" align="center" cols="12">
-                <v-sheet elevation="8" width="80vw" height="80vh" rounded>
+            <v-col justify="center" align="center" cols="12" >
+                <v-sheet elevation="8" height="70vh" rounded class="mt-15">
                     <v-form ref="form" v-model="valid" lazy-validation>
                         <v-container>
-                            <v-row justify="center" align="center">
+                            <v-row justify="center" align="center" class="mt-15">
                                 <v-col justify="center" align="center" cols="3">
                                 </v-col>
                                 <v-col justify="center" align="center" cols="6">
-                                    <v-text-field label="Email" outlined  :rules="emailRules"></v-text-field>
+                                    <v-text-field label="Email" outlined  v-model="email" :rules="emailRules"></v-text-field>
                                 </v-col>
                                 <v-col justify="center" align="center" cols="3">
                                 </v-col>
                                 <v-col justify="center" align="center" cols="4">
-                                    <v-text-field label="Nom" outlined :rules="nomPrenomRules"></v-text-field>
+                                    <v-text-field label="Nom" outlined v-model="name" :rules="nomPrenomRules"></v-text-field>
                                 </v-col>
                                 <v-col justify="center" align="center" cols="4">
-                                    <v-text-field label="Prénom" outlined :rules="nomPrenomRules"></v-text-field>
+                                    <v-text-field label="Prénom" outlined  v-model="prenom" :rules="nomPrenomRules"></v-text-field>
                                 </v-col>
 
                                 <v-col justify="center" align="center" cols="8">
-                                    <v-textarea outlined name="input-7-4" label="Détailler votre demande" :rules="nomPrenomRules"></v-textarea>
+                                    <v-textarea outlined name="input-7-4" label="Détailler votre demande" v-model="prenom" :rules="nomPrenomRules"></v-textarea>
                                 </v-col>
                                 <v-col justify="center" align="center" cols="8">
 
@@ -79,4 +80,5 @@ function validate (this: any) {
 .titre {
     text-align: 'center';
 }
+
 </style>

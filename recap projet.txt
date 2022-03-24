@@ -1,0 +1,39 @@
+SOL Guillaume
+
+Site vitrine d'un groupe de musique d'un proche. Le site comprendra :
+
+- Une page principale qui sera une page scrollable avec présentation du groupe, historique du groupe, les dernières informations du groupe, les prochains concerts, la possibilité d'écouter les musiques du groupe, le visionnage des avis laissé par les fan , un formulaire de contact ( avec envoie de mail) et un footer.
+- Une page avec le détails de chaque concert et la possibilitée de réserver une place (il n'y aura pas de paiement tout sera gratuit). A la réservation un email sera envoyé avec la confirmation de la réservation et le rappel des informations. Le placement sera libre. 
+- Une page réservée au blog qui donnera accès aux articles rédigés avec un accès au fil twitter du groupe. 
+- Une page de connexion qui donnera accès à un espace admin qui permettra l'ajout, la modification et la suppression de musique. Ainsi que la gestion de l'ensemble des concerts et des articles du blog.
+- La page de connexion permettra également aux fans de se créer un compte et de pouvoir laisser des avis. 
+- Une page de création de compte et un bouton d'oublie de mot de passe. 
+
+Technologie  :
+
+Front : 
+
+- Vue JS
+- Vuetify
+- Font Awesome
+
+Back : 
+
+- Terraform (déploiement et maintenance cloud)
+- AWS API GATEWAY
+- AWS S3
+- AWS DYNAMO DB
+- AWS LAMBDA
+- AWS SES
+
+Hébérgement :
+
+- Hostinger
+
+API externe :
+
+- Adresses de France
+
+Lien Github :
+
+https://github.com/guiwil17/Monkenewha

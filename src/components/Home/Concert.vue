@@ -25,7 +25,6 @@ var active = 3
         align="center" cols="12">
 <v-sheet
     elevation="8"
-    width="80vw"
   >
  
    <vue-glide height="100vh" v-model="active" control="true" perView=2>        
