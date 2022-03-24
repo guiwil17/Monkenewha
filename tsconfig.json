@@ -7,6 +7,8 @@
     "moduleResolution": "node",
     "isolatedModules": true,
     "strict": true,
+    "noImplicitAny": false,
+"allowJs": true,
     "jsx": "preserve",
     "sourceMap": true,
     "resolveJsonModule": true,
@@ -20,5 +22,5 @@
   "vueCompilerOptions": {
     "experimentalCompatMode": 2
   },
-  "include": ["vite.config.*", "env.d.ts", "src/**/*", "src/**/*.vue"]
+  "include": ["vite.config.*", "env.d.ts", "src/**/*", "src/**/*.vue", ".d.ts"]
 }

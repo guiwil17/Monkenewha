@@ -3,6 +3,7 @@ import Home from '@/components/Home.vue'
 import Groupe from '@/components/Home/Groupe.vue'
 import Blog from '@/components/Home/Blog.vue'
 import Concert from '@/components/Home/Concert.vue'
+import Contact from '@/components/Home/Contact.vue'
 
 </script>
 
@@ -11,7 +12,8 @@ import Concert from '@/components/Home/Concert.vue'
     <Home />    
     <Groupe />
     <Blog />  
-    <Concert />  
+    <Concert />
+    <Contact />  
 </div>
 </template>
 

@@ -1,5 +1,4 @@
 <script setup lang="ts">
- import { Glide, GlideSlide } from 'vue-glide-js'
 import 'vue-glide-js/dist/vue-glide.css'
 
 var active = 3
@@ -36,7 +35,7 @@ var active = 3
       >
     <v-card
           class="ma-12"
-          height="70vh"
+          height="60vh"
         >
           <v-row
             align="center"
