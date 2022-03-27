@@ -5,6 +5,7 @@ import Blog from '@/components/Home/Blog.vue'
 import Concert from '@/components/Home/Concert.vue'
 import Contact from '@/components/Home/Contact.vue'
 import Historique from '@/components/Home/Historique.vue'
+import Footer from '@/components/Home/footer.vue'
 
 </script>
 
@@ -16,6 +17,7 @@ import Historique from '@/components/Home/Historique.vue'
     <Blog />  
     <Concert />
     <Contact />  
+    <Footer />
 </div>
 </template>
 

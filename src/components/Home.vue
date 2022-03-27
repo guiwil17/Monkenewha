@@ -11,7 +11,10 @@
       >
       
       <v-col align="center" justify="center" cols="12">
-    <h1>Monkenewha</h1>
+    <h1 class="titre text-h2">
+      
+      Monkenewha
+      </h1>
         </v-col>
      <v-col align="center" justify="center" cols="12" >
         <v-img        
@@ -66,6 +69,13 @@
 .pulse-anim{
     box-shadow: 0 0 0 0 black;
     animation: pulse 1.3s infinite;
+}
+.titre{
+  text-align: 'center';
+       background: linear-gradient(to right, #FF6F00, #FBE9E7);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+
 }
 
 @keyframes pulse {
