@@ -81,10 +81,10 @@ export default Vue.extend({
       fill-dot
     >
       <v-card
-        :color="item.color"
+        :color="item.color"        
         dark
       >
-        <v-card-title class="text-h6">
+        <v-card-title class="text-h6"  >
           {{item.titre}}
         </v-card-title>
         <v-card-text class="white text--primary">
@@ -115,6 +115,9 @@ export default Vue.extend({
 
 }
 
+.change:hover {
+  background-color: green;
+}
 
 .titre{
   text-align: 'center';
