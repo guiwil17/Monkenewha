@@ -84,7 +84,7 @@ export default Vue.extend({
         :color="item.color"        
         dark
       >
-        <v-card-title class="text-h6"  >
+        <v-card-title class="text-h6 change"  >
           {{item.titre}}
         </v-card-title>
         <v-card-text class="white text--primary">
