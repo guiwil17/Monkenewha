@@ -3,14 +3,14 @@ import VueCompositionAPI, { createApp, h } from '@vue/composition-api'
 import { createPinia, PiniaVuePlugin } from 'pinia'
 import vuetify from '@/plugins/vuetify'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faCoffee, faTicket,faAngleRight, faAngleLeft, faBook  } from '@fortawesome/free-solid-svg-icons'
+import { faCoffee, faTicket,faAngleRight, faAngleLeft, faBook, faHouse  } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import App from './App.vue'
 import router from './router'
 import VueGlide from 'vue-glide-js'
 import 'vue-glide-js/dist/vue-glide.css'
 
-library.add(faCoffee, faAngleLeft, faBook)
+library.add(faCoffee, faAngleLeft, faBook, faHouse)
 library.add(faTicket)
 library.add(faAngleRight)
 
