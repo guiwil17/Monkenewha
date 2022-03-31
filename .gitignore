@@ -25,3 +25,8 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+variable.tf
+Terraform/terraform.tfsate
+.terraform
+*.zip
