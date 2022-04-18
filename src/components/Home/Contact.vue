@@ -12,7 +12,11 @@ var nomPrenomRules = [(v: string) => !!v || 'Merci de remplir le champs'];
 var  emailRules = [(v: string) => !!v || 'Merci de remplir le champs', (v: string) => /.+@.+\..+/.test(v) || 'Merci de rentrer un email valide'];
 
 function validate (this: any) {       
-        this.$refs.form.validate();    
+        console.log( this.$refs.form)
+        console.log(this.name)
+        console.log(this.email)
+        console.log(this.prenom)
+        console.log(this.contenu)
       }
 </script>
 
@@ -47,7 +51,7 @@ function validate (this: any) {
                                 </v-col>
 
                                 <v-col justify="center" align="center" cols="8">
-                                    <v-textarea outlined name="input-7-4" label="Détailler votre demande" v-model="prenom" :rules="nomPrenomRules"></v-textarea>
+                                    <v-textarea outlined name="input-7-4" label="Détailler votre demande" v-model="contenu" :rules="nomPrenomRules"></v-textarea>
                                 </v-col>
                                 <v-col justify="center" align="center" cols="8">
 

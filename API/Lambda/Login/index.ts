@@ -46,6 +46,7 @@ exports.handler = async (event: { body: any }, context: any, callback: any) => {
             .promise()
 
 
+            console.log("ici")
 
         if (result.Item !== undefined) {
             if (result.Item.password.S === password && result.Item.validationAdmin.BOOL === true && result.Item.validationEmail.BOOL === true) {
@@ -71,6 +72,7 @@ exports.handler = async (event: { body: any }, context: any, callback: any) => {
                 return messageReturn(200, JSON.stringify(retour));
             }
             else {
+                console.log("la")
                 if (result.Item.validationAdmin.BOOL === false && result.Item.validationEmail.BOOL === true) {
                     return messageReturn(404, "Merci d'attendre la réponse de l'admin")
                 }
@@ -78,10 +80,12 @@ exports.handler = async (event: { body: any }, context: any, callback: any) => {
                     return messageReturn(404, "Merci de cliquer sur le lien du mail qui vous a été envoyé")
                 }
                 else {
-                    return messageReturn(404, "erreur")
+                    console.log("ici")
+                    return messageReturn(200, "L'utilisateur ne correspond pas ")
                 }
 
             }
+
         }
 
     }
