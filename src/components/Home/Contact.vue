@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import Vue from 'vue'
 
-var valid = true;
+var valid = false;
 
 var name: string = '';
 var email: string = '';
