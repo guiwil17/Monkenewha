@@ -1,12 +1,18 @@
 <script setup lang="ts">
 import Admin from '@/components/Admin/Home.vue'
+import Musique from '@/components/Admin/Musique.vue'
+import Concert from '@/components/Admin/Concert.vue'
+import Blog from '@/components/Admin/Blog.vue'
 
 </script>
 
 <template>
 <div>
-    <h1>Test</h1>
  <Admin/>
+ <Musique/>
+<Concert/>
+<Blog/>
+
 </div>
 </template>
 
