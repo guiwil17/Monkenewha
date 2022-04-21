@@ -6,32 +6,32 @@ export default {
         cards: [{
                 titre: 'LAlalala',
                 date: "10/02/2020",
-                description: "18:00"               
+                description: "18:00"
             },
             {
-               titre: 'LAlalala',
+                titre: 'LAlalala',
                 date: "10/02/2020",
-                description: "18:00"          
+                description: "18:00"
             },
             {
-               titre: 'LAlalala',
+                titre: 'LAlalala',
                 date: "10/02/2020",
-                description: "18:00"          
+                description: "18:00"
             },
             {
-              titre: 'LAlalala',
+                titre: 'LAlalala',
                 date: "10/02/2020",
-                description: "18:00"          
+                description: "18:00"
             },
             {
-              titre: 'LAlalala',
+                titre: 'LAlalala',
                 date: "10/02/2020",
-                description: "18:00"          
+                description: "18:00"
             },
             {
-               titre: 'LAlalala',
+                titre: 'LAlalala',
                 date: "10/02/2020",
-                description: "18:00"          
+                description: "18:00"
             },
         ],
         socials: [{
@@ -59,8 +59,8 @@ export default {
         detect() {
             alert("yaaaaaaaaaaaaaaaaah")
         },
-        goToHome(){
-          this.$router.push('/')
+        goToHome() {
+            this.$router.push('/')
         }
     },
 }
@@ -68,17 +68,17 @@ export default {
 <template>
 <div class="test">
     <v-container fill-height fill-width>
-        <v-row justify="center" align="center">           
+        <v-row justify="center" align="center">
             <v-col align="center" justify="center" cols="12">
                 <h1 class="titre text-h2">
                     Musique
                 </h1>
-            </v-col>            
-           <v-col align="center" justify="center" cols="12">
-                 <v-btn class="ml-2 mt-5" elevation="2" color="warning" @click="goToHome">
-                   +
+            </v-col>
+            <v-col align="center" justify="center" cols="12">
+                <v-btn class="ml-2 mt-5" elevation="2" color="warning" @click="goToHome">
+                    +
                 </v-btn>
-             </v-col>
+            </v-col>
         </v-row>
 
         <v-row justify="center" align="center">
@@ -89,7 +89,7 @@ export default {
                     <v-spacer></v-spacer>
                     <v-col v-for="card in cards" :key="card" cols="12" sm="6" md="3">
                         <v-card>
-                            <v-img :src="`https://picsum.photos/200/300?image=${getImage()}`" aspect-ratio="1"  @click="detect()">
+                            <v-img :src="`https://picsum.photos/200/300?image=${getImage()}`" aspect-ratio="1" @click="detect()">
 
                             </v-img>
 
@@ -106,10 +106,10 @@ export default {
                                         <v-col align="center" justify="center" cols="12">
                                             {{card.description}}
                                         </v-col>
-                                           <v-col align="center" justify="center" cols="6">
+                                        <v-col align="center" justify="center" cols="6">
                                             <v-btn @click="goToHome">Listen</v-btn>
                                         </v-col>
-                                          <v-col align="center" justify="center" cols="6">
+                                        <v-col align="center" justify="center" cols="6">
                                             <v-btn @click="goToHome">Update</v-btn>
                                         </v-col>
                                     </v-row>
@@ -151,6 +151,5 @@ export default {
     background: linear-gradient(to right, #FF6F00, #FBE9E7);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-
 }
 </style>

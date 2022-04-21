@@ -1,11 +1,11 @@
 <template>
 <div class="test">
-    <v-container fill-height fill-width>
+    <v-container fill-height fill-width class="titre">
         <v-row justify="center" align="center">
             <v-col align="center" justify="center" cols="2">
             </v-col>
             <v-col align="center" justify="center" cols="8">
-                <h1 class="titre text-h2">
+                <h1 class="title text-h2">
                     Gestion administrateur
                 </h1>
             </v-col>
@@ -18,7 +18,7 @@
             </v-col>
         </v-row>
 
-        <v-row justify="center" align="center">
+        <v-row justify="center" align="center" class="repartition">
             <v-container fill-height fill-width>
                 <v-row justify="center" align="center">
                     <v-col align="center" justify="center" cols="12" class="top">
@@ -26,7 +26,7 @@
                     <v-col align="center" justify="center" cols="4">
                         <v-btn elevation="2" color="warning">A propos de nous</v-btn>
                     </v-col>
-                       <v-col align="center" justify="center" cols="4">
+                    <v-col align="center" justify="center" cols="4">
                         <v-btn elevation="2" color="warning">A propos de nous</v-btn>
                     </v-col>
 
@@ -54,6 +54,10 @@
     height: 10vh;
 }
 
+.repartition {
+    height: 90vh;
+}
+
 .image {
     border-radius: 100%;
     width: 300px;
@@ -65,10 +69,13 @@
 }
 
 .titre {
+    height: 10vh;
+}
+
+.title {
     text-align: 'center';
     background: linear-gradient(to right, #FF6F00, #FBE9E7);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-
 }
 </style>
