@@ -89,3 +89,109 @@ resource "aws_lambda_permission" "api_logout" {
   principal     = "apigateway.amazonaws.com"
   source_arn    = "${aws_api_gateway_rest_api.api.execution_arn}/*/*/*"
 }
+
+resource "aws_lambda_permission" "api_addConcert" {
+  statement_id  = "AllowExecutionReadFromAPIGateway"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.lambdaAddConcert.function_name
+  principal     = "apigateway.amazonaws.com"
+  source_arn    = "${aws_api_gateway_rest_api.api.execution_arn}/*/*/*"
+}
+
+resource "aws_lambda_permission" "api_editConcert" {
+  statement_id  = "AllowExecutionReadFromAPIGateway"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.lambdaEditConcert.function_name
+  principal     = "apigateway.amazonaws.com"
+  source_arn    = "${aws_api_gateway_rest_api.api.execution_arn}/*/*/*"
+}
+
+resource "aws_lambda_permission" "api_deleteConcert" {
+  statement_id  = "AllowExecutionReadFromAPIGateway"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.lambdaDeleteConcert.function_name
+  principal     = "apigateway.amazonaws.com"
+  source_arn    = "${aws_api_gateway_rest_api.api.execution_arn}/*/*/*"
+}
+
+resource "aws_lambda_permission" "api_getConcert" {
+  statement_id  = "AllowExecutionReadFromAPIGateway"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.lambdaGetConcert.function_name
+  principal     = "apigateway.amazonaws.com"
+  source_arn    = "${aws_api_gateway_rest_api.api.execution_arn}/*/*/*"
+}
+
+resource "aws_lambda_permission" "api_getBlog" {
+  statement_id  = "AllowExecutionReadFromAPIGateway"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.lambdaGetBlog.function_name
+  principal     = "apigateway.amazonaws.com"
+  source_arn    = "${aws_api_gateway_rest_api.api.execution_arn}/*/*/*"
+}
+
+resource "aws_lambda_permission" "api_addBlog" {
+  statement_id  = "AllowExecutionReadFromAPIGateway"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.lambdaAddBlog.function_name
+  principal     = "apigateway.amazonaws.com"
+  source_arn    = "${aws_api_gateway_rest_api.api.execution_arn}/*/*/*"
+}
+
+resource "aws_lambda_permission" "api_editBlog" {
+  statement_id  = "AllowExecutionReadFromAPIGateway"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.lambdaEditBlog.function_name
+  principal     = "apigateway.amazonaws.com"
+  source_arn    = "${aws_api_gateway_rest_api.api.execution_arn}/*/*/*"
+}
+
+resource "aws_lambda_permission" "api_deleteBlog" {
+  statement_id  = "AllowExecutionReadFromAPIGateway"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.lambdaDeleteBlog.function_name
+  principal     = "apigateway.amazonaws.com"
+  source_arn    = "${aws_api_gateway_rest_api.api.execution_arn}/*/*/*"
+}
+
+
+resource "aws_lambda_permission" "api_deleteMusique" {
+  statement_id  = "AllowExecutionReadFromAPIGateway"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.lambdaDeleteMusique.function_name
+  principal     = "apigateway.amazonaws.com"
+  source_arn    = "${aws_api_gateway_rest_api.api.execution_arn}/*/*/*"
+}
+
+resource "aws_lambda_permission" "api_addMusique" {
+  statement_id  = "AllowExecutionReadFromAPIGateway"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.lambdaAddMusique.function_name
+  principal     = "apigateway.amazonaws.com"
+  source_arn    = "${aws_api_gateway_rest_api.api.execution_arn}/*/*/*"
+}
+
+
+resource "aws_lambda_permission" "api_editMusique" {
+  statement_id  = "AllowExecutionReadFromAPIGateway"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.lambdaEditMusique.function_name
+  principal     = "apigateway.amazonaws.com"
+  source_arn    = "${aws_api_gateway_rest_api.api.execution_arn}/*/*/*"
+}
+
+resource "aws_lambda_permission" "api_listMusique" {
+  statement_id  = "AllowExecutionReadFromAPIGateway"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.lambdaListMusique.function_name
+  principal     = "apigateway.amazonaws.com"
+  source_arn    = "${aws_api_gateway_rest_api.api.execution_arn}/*/*/*"
+}
+
+resource "aws_lambda_permission" "api_getMusique" {
+  statement_id  = "AllowExecutionReadFromAPIGateway"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.lambdaGetMusique.function_name
+  principal     = "apigateway.amazonaws.com"
+  source_arn    = "${aws_api_gateway_rest_api.api.execution_arn}/*/*/*"
+}

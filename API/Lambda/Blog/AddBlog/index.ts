@@ -1,11 +1,11 @@
-import AWS, { DynamoDB } from "aws-sdk";
-
+import AWS from "aws-sdk";
 
 const ddb = new AWS.DynamoDB({ region: "eu-west-3" });
+var docClient = new AWS.DynamoDB.DocumentClient()
 
 type tResponse = {
     statusCode: number;
-    body: string
+    body: string;
     headers: {}
 };
 
@@ -29,32 +29,35 @@ function messageReturn(code: number, message: any): tResponse {
 
 exports.handler = async (event: any) => {
     try {
+        const TOKEN_KEY = process.env.TOKEN_KEY || ""
         const DB = process.env.DYNAMO_DB || ""
         var body = JSON.parse(event.body);
-        const name = body.name;
-        const email = body.email;
-        const password = body.password;
-        const firstName = body.firstName;
+        const titre = body.titre;
+        const date = body.date;
+        const description = body.description;
+        const img = body.img;
+        const timestamp = body.timestamp;
 
-        const item: DynamoDB.PutItemInput = {
+        const item = {
             TableName: DB,
             Item: {
-                email: { S: email },
-                name: { S: name },
-                firstName: { S: firstName },
-                password: { S: password },
-                isAdmin: { BOOL: false }
+                id: { S: timestamp },
+                titre: { S: titre },
+                date: { S: date },
+                description: { S: description },
+                img: { S: img },
             },
-            ConditionExpression: 'attribute_not_exists(email)',
+            ConditionExpression: 'attribute_not_exists(id)',
         };
         await ddb
             .putItem(item)
             .promise()
 
-        return messageReturn(200, "ajout fini")
+        return messageReturn(200, "ajout de l'article fini")
+
     }
     catch (e) {
-        return messageReturn(404, e)
+        console.log(e)
+        return messageReturn(400, e)
     }
-
 }

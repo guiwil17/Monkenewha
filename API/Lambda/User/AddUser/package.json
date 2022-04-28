@@ -1,11 +1,11 @@
 {
-  "name": "logout",
+  "name": "addUser",
   "version": "1.0.0",
   "description": "Lambda permettant la déconnexion à Monkenewha",
   "main": "index.js",
   "scripts": {
-    "build": "tsc &&  7z a -tzip ../..//logout.zip .// -xr!node_modules//aws-sdk -xr!node_modules//@types",
-    "clean": "rmdir /Q /S dist && del ../..//logout.zip",
+    "build": "tsc &&  7z a -tzip ../../..//addUser.zip .// -xr!node_modules//aws-sdk -xr!node_modules//@types",
+    "clean": "rmdir /Q /S dist && del ../../..//addUser.zip",
     "local-run": "ts-node index.ts",
     "typecheck": "tsc --noEmit"
   },

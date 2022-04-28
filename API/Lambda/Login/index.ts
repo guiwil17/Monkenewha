@@ -28,7 +28,7 @@ function messageReturn(code: number, message: any): tResponse {
     };
 }
 
-exports.handler = async (event: { body: any }, context: any, callback: any) => {
+exports.handler = async (event: any) => {
     try {
         const TOKEN_KEY = process.env.TOKEN_KEY || ""
         const DB = process.env.DYNAMO_DB || ""
@@ -45,12 +45,10 @@ exports.handler = async (event: { body: any }, context: any, callback: any) => {
             .getItem(params)
             .promise()
 
-
-            console.log("ici")
-
         if (result.Item !== undefined) {
-            if (result.Item.password.S === password && result.Item.validationAdmin.BOOL === true && result.Item.validationEmail.BOOL === true) {
+            if (result.Item.password.S === password) {
                 const token = jwt.sign({ exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24) }, TOKEN_KEY)
+                console.log("yyyyyy")
                 const UpdateParams = {
                     TableName: DB,
                     Key: {
@@ -64,32 +62,20 @@ exports.handler = async (event: { body: any }, context: any, callback: any) => {
                 await docClient.update(UpdateParams).promise()
 
                 const retour = {
-                    token: token,
-                    isAdmin: result.Item.isAdmin.BOOL,
-                    role: result.Item.role.S,
+                    token: token
                 }
 
                 return messageReturn(200, JSON.stringify(retour));
             }
             else {
-                console.log("la")
-                if (result.Item.validationAdmin.BOOL === false && result.Item.validationEmail.BOOL === true) {
-                    return messageReturn(404, "Merci d'attendre la réponse de l'admin")
-                }
-                else if (result.Item.validationAdmin.BOOL === false && result.Item.validationEmail.BOOL === false) {
-                    return messageReturn(404, "Merci de cliquer sur le lien du mail qui vous a été envoyé")
-                }
-                else {
-                    console.log("ici")
-                    return messageReturn(200, "L'utilisateur ne correspond pas ")
-                }
-
+                return messageReturn(200, "Aucun utilisateur trouvé")
             }
 
         }
 
     }
     catch (e) {
+        console.log(e)
         return messageReturn(400, e)
     }
 }

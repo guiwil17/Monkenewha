@@ -1,0 +1,20 @@
+{
+  "name": "AddBlog",
+  "version": "1.0.0",
+  "description": "Lambda permettant l'ajout d'un article de blog à Monkenewha",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc &&  7z a -tzip ../../..//addBlog.zip .// -xr!node_modules//aws-sdk -xr!node_modules//@types",
+    "clean": "rmdir /Q /S dist && del ../../..//addBlog.zip",
+    "local-run": "ts-node index.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.1104.0"
+  },
+  "devDependencies": {
+    "@types/jsonwebtoken": "^8.5.5"
+  }
+}
