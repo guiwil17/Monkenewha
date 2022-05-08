@@ -1,9 +1,44 @@
-<script>
-  export default {
-    data: () => ({
-      dialog: false,
-    }),
+<script setup lang="ts">
+ import API from './../../api'
+
+  var dialog = false
+  var valid: boolean = true;
+
+var place: string = '';
+var description: string = '';
+var lieu: string = '';
+var image: string;
+var imageUrl: string = "";
+
+var date: Date;
+
+var champs = [(v: string) => !!v || 'Merci de remplir le champs'];
+
+function connect(this: any) {
+     API.createConcert(this.lieu, this.place, this.description, this.date, this.imageUrl).then((result)=>{
+       console.log(result)
+    })
+        dialog = true
+}
+
+
+function change(this:any) {
+ if (!this.image) {
+      return;
+    }
+  else{
+     const reader = new FileReader();
+
+    reader.onload = e => {
+      if(e.target !== null){
+      this.imageUrl = e.target.result;
+       console.log(e.target.result)
+
+      }
+    };
+    reader.readAsDataURL(this.image);
   }
+}
 </script>
 <template>
   <v-row justify="center">
@@ -14,17 +49,17 @@
     >
       <template v-slot:activator="{ on, attrs }">
         <v-btn
-          color="teal"
+          color="orange"
           dark
           v-bind="attrs"
           v-on="on"
         >
-          <font-awesome-icon icon="pen" />
+          +
         </v-btn>
       </template>
       <v-card>
         <v-card-title>
-          <span class="text-h5">Modification du concert</span>
+          <span class="text-h5">Ajouter un concert</span>
         </v-card-title>
         <v-card-text>
           <v-container>
@@ -35,7 +70,8 @@
                 md="6"
               >
                 <v-text-field
-                  label="Lieux*"
+                  label="Lieu*"
+                  v-model="lieu"
                   required
                 ></v-text-field>
               </v-col> 
@@ -45,6 +81,7 @@
                 md="6"
               >
                 <v-text-field
+                v-model="place"
                   label="Nombre de place*"
                   required
                 ></v-text-field>
@@ -52,6 +89,7 @@
              
               <v-col cols="12">
                 <v-textarea
+                v-model="description"
                   label="Description*"
                   required
                 ></v-textarea>
@@ -104,7 +142,8 @@
                 cols="12"
                 sm="6"
               >
-              <v-file-input label="Image" accept="image/*" prepend-icon="mdi-camera-image"></v-file-input>
+              <v-file-input  v-model="image" label="Image" accept="image/*" prepend-icon="mdi-camera-image" @change="change(e)"></v-file-input>
+              <v-img :src="imageUrl" />
               </v-col>
             </v-row>
           </v-container>
@@ -122,7 +161,7 @@
           <v-btn
             color="blue darken-1"
             text
-            @click="dialog = false"
+            @click="connect"
           >
             Save
           </v-btn>

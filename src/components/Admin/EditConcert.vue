@@ -1,8 +1,13 @@
 <script>
   export default {
     data: () => ({
-      dialog: false,
+      dialog: false
     }),
+     props: {
+       concert: {
+         type: Object
+       }
+     }
   }
 </script>
 <template>
@@ -35,8 +40,9 @@
                 md="6"
               >
                 <v-text-field
-                  label="Lieux*"
+                  label="Lieu*"
                   required
+                  :value="concert.lieu"
                 ></v-text-field>
               </v-col> 
               <v-col
@@ -47,6 +53,7 @@
                 <v-text-field
                   label="Nombre de place*"
                   required
+                  :value="concert.nbrPlace"
                 ></v-text-field>
               </v-col>            
              
@@ -54,6 +61,7 @@
                 <v-textarea
                   label="Description*"
                   required
+                  :value="concert.description"
                 ></v-textarea>
               </v-col>             
               <v-col
@@ -63,16 +71,15 @@
                 <v-dialog
         ref="dialog"
         v-model="modal"
-        :return-value.sync="date"
+        :return-value.sync="concert.date"
         persistent
         width="290px"
       >
         <template v-slot:activator="{ on, attrs }">
           <v-text-field
-            v-model="date"
+            v-model="concert.date"
             label="Date"
-            prepend-icon="mdi-calendar"            
-            readonly
+            prepend-icon="mdi-calendar"                                   
             v-bind="attrs"
             v-on="on"
           ></v-text-field>
@@ -108,7 +115,7 @@
               </v-col>
             </v-row>
           </v-container>
-          <small>*indicates required field</small>
+          <small>*indicates required field </small>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>

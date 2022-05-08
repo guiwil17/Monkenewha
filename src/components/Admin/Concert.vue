@@ -1,9 +1,31 @@
-<script lang="ts">
+<script>
 import 'vue-glide-js/dist/vue-glide.css'
 import EditConcert from './EditConcert.vue';
+import AddConcert from './AddConcert.vue';
+import DeleteConcert from './DeleteConcert.vue';
+import API from './../../api'
+
 export default {
-  components: { EditConcert },
+    data(){
+        return {
+concerts: null,
+load: true
+        }
+      
+    },
+  components: { EditConcert, AddConcert, DeleteConcert },
+  created (){
+   API.getConcert().then((data) => {
+this.concerts = data
+this.load = false 
+   })
+},
+props:{
+    concert: Object
 }
+
+}
+
 var active = 3
 </script>
 
@@ -15,43 +37,58 @@ var active = 3
                 <h1 class="titre">Concerts </h1>
             </v-col>
             <v-col align="center" justify="center" cols="12">
-                <v-btn class="ml-2 mt-5" elevation="2" color="warning" @click="goToHome">
-                    +
-                </v-btn>
+              <AddConcert />
             </v-col>
         </v-row>
     </v-container>
+    <!-- <v-container>
+        <v-row v-for="concert in concerts" :key="concert.id" justify="center" align="center">
+            <v-col align="center" justify="center" cols="12">
+                <h1 class="titre"> </h1>
+            </v-col>          
+        </v-row>
+    </v-container> -->
     <v-container>
-        <v-row justify="center" align="center">
+         <v-row justify="center" align="center" v-if="load">
+            <v-col justify="center" align="center" cols="12">
+                <v-sheet elevation="8">
+
+                   Chargement des donnnées en cours
+
+                </v-sheet>
+            </v-col>
+        </v-row>
+        <v-row justify="center" align="center" v-else>
             <v-col justify="center" align="center" cols="12">
                 <v-sheet elevation="8">
 
                     <vue-glide height="100vh" v-model="active" control="true" perView=2>
-                        <vue-glide-slide v-for="i in 10" :key="i">
-                            <v-card class="ma-12" height="60vh">
+                        <vue-glide-slide v-for="concert in concerts" :key="concert.id">
+                            <v-card class="ma-12" height="60vh" :key="concert.id">
                                 <v-row align="center" justify="center">
                                     <v-col align="center" justify="center" cols="12">
-                                        <h2>Reims Arena </h2>
+                                        <h2>{{concert.lieu}}</h2>
 
                                         <hr class="hr" />
                                     </v-col>
                                     <v-col align="center" justify="center" cols="12">
-                                        <v-img src="https://remeng.rosselcdn.net/sites/default/files/dpistyles_v2/ena_16_9_extra_big/2019/08/29/node_89564/11018792/public/2019/08/29/B9720726729Z.1_20190829202512_000%2BGAREB9GAM.2-0.jpg?itok=b2AfeySY1567147356"></v-img>
+                                        <v-img :src="concert.img" max-height="700" max-width="700" ></v-img>
                                     </v-col>
                                     <v-col align="center" justify="center" cols="12">
-                                        18/05/2020
+                                        {{concert.date}}
                                     </v-col>
                                     <v-col align="center" justify="center" cols="12">
-                                        Nombre de place disponible : 20/80
+                                        Nombre de place disponible : {{concert.nbrPlaceDispo}} / {{concert.nbrPlace}}
+                                    </v-col>
+                                      <v-col align="center" justify="center" cols="12">
+                                       {{concert.description}}
                                     </v-col>
 
                                     <v-col align="center" justify="center" cols="6">
-                                        <v-btn color="error">
-                                            <font-awesome-icon icon="trash" />
-                                        </v-btn>
+                                        <DeleteConcert :concert="concert"/>
                                     </v-col>
                                     <v-col align="center" justify="center" cols="6">
-                                        <EditConcert />
+                                        <EditConcert :concert="concert"/>
                                     </v-col>
                                 </v-row>
                             </v-card>
@@ -85,6 +122,11 @@ var active = 3
 .full {
     height: 80%;
     width: 100%;
+}
+
+.image {
+    height: 100;
+    width: 100;
 }
 
 .hr {

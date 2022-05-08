@@ -1,8 +1,9 @@
-<script>
+<script lang='ts'>
   export default {
     data: () => ({
       dialog: false,
     }),
+   
   }
 </script>
 <template>
