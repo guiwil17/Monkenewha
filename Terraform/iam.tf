@@ -39,14 +39,14 @@ data "aws_iam_policy_document" "lambda_read" {
 
   statement {
     effect    = "Allow"
-    actions   = ["s3:GetObject", "s3:ListBucket"]
+    actions   = ["s3:GetObject", "s3:ListBucket", "s3:putObject", "s3:DeleteObject"]
     resources = ["*"]
   }
 
   statement {
     sid       = "SpecificTable"
     effect    = "Allow"
-    actions   = ["dynamodb:PutItem", "dynamodb:GetItem", "dynamodb:UpdateItem", "dynamodb:Scan"]
+    actions   = ["dynamodb:PutItem", "dynamodb:GetItem", "dynamodb:UpdateItem", "dynamodb:Scan", "dynamodb:DeleteItem"]
     resources = ["*"]
   }
 

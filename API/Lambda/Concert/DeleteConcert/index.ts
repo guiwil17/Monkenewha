@@ -2,6 +2,7 @@ import AWS from "aws-sdk";
 
 const ddb = new AWS.DynamoDB({ region: "eu-west-3" });
 var docClient = new AWS.DynamoDB.DocumentClient()
+const s3 = new AWS.S3();
 
 type tResponse = {
     statusCode: number;
@@ -33,6 +34,14 @@ exports.handler = async (event: any) => {
         const DB = process.env.DYNAMO_DB || ""
 
         const id = event.id;
+
+        console.log(id)
+
+        var param = {
+            Bucket: "monkenewha",
+            Key: "Concert/" + id
+        };
+        const r = await s3.deleteObject(param).promise();
 
         var params = {
             TableName: DB,

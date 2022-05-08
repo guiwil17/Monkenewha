@@ -384,11 +384,13 @@ resource "aws_api_gateway_integration" "resource_integration_delete_concert" {
   passthrough_behavior    = "WHEN_NO_TEMPLATES"
 
   # request_parameters = {
-  #   "integration.request.querystring.date" = "method.request.querystring.date"
+  #   "integration.request.querystring.id" = "method.request.querystring.id"
   # }
   request_templates = {
     "application/json" = <<EOF
-    {"id":  "$input.params('id')"}
+    {"id":  "$input.params('id')",
+    "test":  "$input.params('test')"
+    }
     EOF  
   }
 }

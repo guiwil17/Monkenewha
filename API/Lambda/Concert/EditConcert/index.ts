@@ -2,6 +2,7 @@ import AWS from "aws-sdk";
 
 const ddb = new AWS.DynamoDB({ region: "eu-west-3" });
 var docClient = new AWS.DynamoDB.DocumentClient()
+const s3 = new AWS.S3();
 
 type tResponse = {
     statusCode: number;
@@ -39,18 +40,29 @@ exports.handler = async (event: any) => {
         const nbrPlace = body.nbrPlace;
         const img = body.img;
         const id = body.id;
+        const description = body.description;
+
+
+        const ajout_s3 = {
+            Bucket: "monkenewha",
+            Key: "Concert/" + id,
+            Body: img,
+
+        }
+
+        await s3.putObject(ajout_s3).promise()
 
         var params = {
-            TableName: "ucesorh",
+            TableName: DB,
             Key: {
                 id: id
             },
-            UpdateExpression: "set lieu = :lieu, date = :date, nbrPlace = :nbrPlace, img = :img ",
+            UpdateExpression: "set lieu = :lieu, date = :date, nbrPlace = :nbrPlace, description = :description ",
             ExpressionAttributeValues: {
                 ":lieu": lieu,
                 ":date": date,
                 ":nbrPlace": nbrPlace,
-                ":img": img,
+                ":description": description,
             },
         };
 
