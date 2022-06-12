@@ -1,51 +1,42 @@
+<script>
+import router from 'vue-router'
+export default {
+      methods: {       
+        goToHome() {
+            this.$router.push('/')
+        }
+    },
+}
+</script>
 <template>
 <div class="test">
-    <v-container fill-height fill-width class="titre">
-        <v-row justify="center" align="center">
-            <v-col align="center" justify="center" cols="2">
-            </v-col>
-            <v-col align="center" justify="center" cols="8">
-                <h1 class="title text-h2">
+    <v-container  fill-width >
+        <v-row justify="center" align="center">          
+            <v-col align="center" justify="center" cols="12">
+                <h1 class="titre">
                     Gestion administrateur
                 </h1>
-            </v-col>
-            <v-col align="center" justify="center" cols="1">
+            </v-col>  
+            <v-col align="center" justify="center" cols="12">
                 <v-btn class="ml-2 mt-5" elevation="2" color="warning" @click="goToHome">
-                    <font-awesome-icon icon="house" />
+                    <v-icon>mdi-logout</v-icon>
                 </v-btn>
-            </v-col>
-            <v-col align="center" justify="center" cols="3">
-            </v-col>
-        </v-row>
-
-        <v-row justify="center" align="center" class="repartition">
-            <v-container fill-height fill-width>
-                <v-row justify="center" align="center">
-                    <v-col align="center" justify="center" cols="12" class="top">
-                    </v-col>
-                    <v-col align="center" justify="center" cols="4">
-                        <v-btn elevation="2" color="warning">A propos de nous</v-btn>
-                    </v-col>
-                    <v-col align="center" justify="center" cols="4">
-                        <v-btn elevation="2" color="warning">A propos de nous</v-btn>
-                    </v-col>
-
-                    <v-col align="center" justify="center" cols="4">
-                        <v-btn elevation="2" color="warning">
-                            <font-awesome-icon icon="ticket" />
-                        </v-btn>
-                    </v-col>
-                </v-row>
-            </v-container>
-        </v-row>
-
+            </v-col>                              
+        </v-row>      
+        <v-row justify="center" align="center" class="ecart"></v-row>
+        <v-row justify="center" align="center">          
+           <v-col align="center" justify="center" cols="12">
+                <v-img max-height="300" max-width="500" :src="require('../../Images/damien.png')" class="pulse-anim image "></v-img>
+            </v-col>                         
+        </v-row>      
     </v-container>
+    
 </div>
 </template>
 
-<style scoped>
+<style >
 .test {
-    min-height: 100vh;
+    height: 100vh;
     background-color: #FEFFFF;
     color: BLACK;
 }
@@ -54,8 +45,8 @@
     height: 10vh;
 }
 
-.repartition {
-    height: 90vh;
+.ecart {
+    height: 10vh;
 }
 
 .image {
@@ -68,14 +59,21 @@
     animation: pulse 1.3s infinite;
 }
 
-.titre {
-    height: 10vh;
-}
 
-.title {
+.titre {
     text-align: 'center';
-    background: linear-gradient(to right, #FF6F00, #FBE9E7);
+    background: #7CC5CF;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+     font-family: 'Permanent Marker', cursive;
+     font-size: 4rem
+}
+
+@keyframes pulse {
+    to {
+        box-shadow: 0 0 0 18px rgba(228, 225, 225, 0.01);
+
+    }
+
 }
 </style>

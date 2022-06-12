@@ -5,7 +5,7 @@ import Blog from '@/components/Home/Blog.vue'
 import Concert from '@/components/Home/Concert.vue'
 import Contact from '@/components/Home/Contact.vue'
 import Historique from '@/components/Home/Historique.vue'
-import Footer from '@/components/Home/footer.vue'
+import Musique from '@/components/Musique/Home.vue'
 
 </script>
 
@@ -14,10 +14,10 @@ import Footer from '@/components/Home/footer.vue'
     <Home />    
     <Historique />
     <Groupe />
+    <!-- <Musique /> -->
     <Blog />  
     <Concert />
     <Contact />  
-    <Footer />
 </div>
 </template>
 

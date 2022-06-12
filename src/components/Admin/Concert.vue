@@ -20,8 +20,18 @@ this.concerts = data
 this.load = false 
    })
 },
+methods:{
+updateConcert(){
+     this.load = true 
+      API.getConcert().then((data) => {     
+this.concerts = data
+this.load = false 
+})
+}
+},
 props:{
-    concert: Object
+    concert: Object,
+    updateConcert: Function
 }
 
 }
@@ -33,11 +43,14 @@ var active = 3
 <div class="test">
     <v-container>
         <v-row justify="center" align="center">
+              <v-col align="center" justify="center" cols="8" >
+                <v-divider></v-divider>
+             </v-col>
             <v-col align="center" justify="center" cols="12">
                 <h1 class="titre">Concerts </h1>
             </v-col>
             <v-col align="center" justify="center" cols="12">
-              <AddConcert />
+              <AddConcert :updateConcert="updateConcert"/>
             </v-col>
         </v-row>
     </v-container>
@@ -64,7 +77,7 @@ var active = 3
 
                     <vue-glide height="100vh" v-model="active" control="true" perView=2>
                         <vue-glide-slide v-for="concert in concerts" :key="concert.id">
-                            <v-card class="ma-12" height="60vh" :key="concert.id">
+                            <v-card class="ma-12" height="70vh" :key="concert.id">
                                 <v-row align="center" justify="center">
                                     <v-col align="center" justify="center" cols="12">
                                         <h2>{{concert.lieu}}</h2>
@@ -72,10 +85,10 @@ var active = 3
                                         <hr class="hr" />
                                     </v-col>
                                     <v-col align="center" justify="center" cols="12">
-                                        <v-img :src="concert.img" max-height="700" max-width="700" ></v-img>
+                                        <v-img :src="concert.img" max-height="300" min-height="300" max-width="400" min-width="400" ></v-img>
                                     </v-col>
                                     <v-col align="center" justify="center" cols="12">
-                                        {{concert.date}}
+                                        {{concert.date}}{{ concert.heureDeb }}
                                     </v-col>
                                     <v-col align="center" justify="center" cols="12">
                                         Nombre de place disponible : {{concert.nbrPlaceDispo}} / {{concert.nbrPlace}}
@@ -85,10 +98,10 @@ var active = 3
                                     </v-col>
 
                                     <v-col align="center" justify="center" cols="6">
-                                        <DeleteConcert :concert="concert"/>
+                                        <DeleteConcert :concert="concert" :updateConcert="updateConcert"/>
                                     </v-col>
                                     <v-col align="center" justify="center" cols="6">
-                                        <EditConcert :concert="concert"/>
+                                        <EditConcert :concert="concert" :updateConcert="updateConcert"/>
                                     </v-col>
                                 </v-row>
                             </v-card>
@@ -113,9 +126,19 @@ var active = 3
 
 <style scoped>
 .test {
-    height: 100vh;
+    height: 110vh;
     background-color: white;
     color: black;
+
+}
+
+.titre {
+    text-align: 'center';
+    background: #7CC5CF;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+     font-family: 'Permanent Marker', cursive;
+     font-size: 3.75rem
 
 }
 

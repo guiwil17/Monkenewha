@@ -1,133 +1,117 @@
 <script>
+import API from './../../api'
+import AddMusique from './AddMusique.vue';
+import EditMusique from './EditMusique.vue';
+import DeleteMusique from './DeleteMusique.vue';
 import router from 'vue-router'
 export default {
     data: () => ({
-        types: ['Places to Be', 'Places to See'],
-        cards: [{
-                titre: 'LAlalala',
-                date: "10/02/2020",
-                description: "18:00"
-            },
-            {
-                titre: 'LAlalala',
-                date: "10/02/2020",
-                description: "18:00"
-            },
-            {
-                titre: 'LAlalala',
-                date: "10/02/2020",
-                description: "18:00"
-            },
-            {
-                titre: 'LAlalala',
-                date: "10/02/2020",
-                description: "18:00"
-            },
-            {
-                titre: 'LAlalala',
-                date: "10/02/2020",
-                description: "18:00"
-            },
-            {
-                titre: 'LAlalala',
-                date: "10/02/2020",
-                description: "18:00"
-            },
-        ],
-        socials: [{
-                icon: 'mdi-facebook',
-                color: 'indigo',
-            },
-            {
-                icon: 'mdi-linkedin',
-                color: 'cyan darken-1',
-            },
-            {
-                icon: 'mdi-instagram',
-                color: 'red lighten-3',
-            },
-        ],
+        musiques: null,
+        load: true
     }),
-
-    methods: {
-        getImage() {
-            const min = 550
-            const max = 560
-
-            return Math.floor(Math.random() * (max - min + 1)) + min
-        },
-        detect() {
-            alert("yaaaaaaaaaaaaaaaaah")
-        },
+    components: { AddMusique, DeleteMusique, EditMusique },
+    created() {
+        API.getMusique().then((data) => {
+            this.musiques = data
+            console.log(this.musiques)
+            this.load = false
+        })
+    },
+    methods: {        
         goToHome() {
             this.$router.push('/')
+        },
+        updateMusique(){
+           
+             API.getMusique().then((data) => {
+            this.musiques = data                        
+        })
         }
     },
+    props:{   
+    updateMusique: Function
+}
 }
 </script>
 <template>
-<div class="test">
-    <v-container fill-height fill-width>
-        <v-row justify="center" align="center">
-            <v-col align="center" justify="center" cols="12">
-                <h1 class="titre text-h2">
-                    Musique
-                </h1>
-            </v-col>
-            <v-col align="center" justify="center" cols="12">
-                <v-btn class="ml-2 mt-5" elevation="2" color="warning" @click="goToHome">
-                    +
-                </v-btn>
-            </v-col>
-        </v-row>
+    <div class="test">
+        <v-container fill-height fill-width>
+            
+            <v-row justify="center" align="center">
+                  <v-col align="center" justify="center" cols="8" >
+                <v-divider></v-divider>
+             </v-col>
+                <v-col align="center" justify="center" cols="12">
+                    <h1 class="titre">
+                        Musique
+                    </h1>
+                </v-col>
+                <v-col align="center" justify="center" cols="12">
 
-        <v-row justify="center" align="center">
+                    <AddMusique :updateMusique="updateMusique"/>
+                </v-col>
+            </v-row>
 
-            <v-container fluid>
+            <v-row justify="center" align="center" v-if="load">
+                <v-col justify="center" align="center" cols="12">
+                    <v-sheet elevation="8">
 
-                <v-row>
-                    <v-spacer></v-spacer>
-                    <v-col v-for="card in cards" :key="card" cols="12" sm="6" md="3">
-                        <v-card>
-                            <v-img :src="`https://picsum.photos/200/300?image=${getImage()}`" aspect-ratio="1" @click="detect()">
+                        Chargement des donnnées en cours
 
-                            </v-img>
+                    </v-sheet>
+                </v-col>
+            </v-row>
+            <v-row justify="center" align="center" v-else>
 
-                            <v-card-actions class="white justify-center">
-                                <v-container fill-height fill-width>
-                                    <v-row justify="center" align="center">
+                <v-container fluid>
 
-                                        <v-col align="center" justify="center" cols="12">
-                                            <span class="text-h5 pl-4 pt-4 d-inline-block" v-text="card.titre"></span>
-                                        </v-col>
-                                        <v-col align="center" justify="center" cols="12">
-                                            {{card.date}}
-                                        </v-col>
-                                        <v-col align="center" justify="center" cols="12">
-                                            {{card.description}}
-                                        </v-col>
-                                        <v-col align="center" justify="center" cols="6">
-                                            <v-btn @click="goToHome">Listen</v-btn>
-                                        </v-col>
-                                        <v-col align="center" justify="center" cols="6">
-                                            <v-btn @click="goToHome">Update</v-btn>
-                                        </v-col>
-                                    </v-row>
-                                </v-container>
-                            </v-card-actions>
-                        </v-card>
-                    </v-col>
-                </v-row>
-            </v-container>
-        </v-row>
+                    <v-row>
+                        <v-spacer></v-spacer>                        
+                        <v-col v-for="musique in musiques" :key="musique" cols="12" sm="6" md="3">
+                            <v-card>
+                                <v-img :src="musique.img" aspect-ratio="1" @click="detect()">
 
-    </v-container>
-</div>
+                                </v-img>
+
+                                <v-card-actions class="white justify-center">
+                                    <v-container  fill-width>
+                                        <v-row justify="center" align="center">
+
+                                            <v-col align="center" justify="center" cols="12">
+                                                <span class="text-h5 pl-4 pt-4 d-inline-block"
+                                                    v-text="musique.titre"></span>
+                                            </v-col>
+                                            <v-col align="center" justify="center" cols="12">
+                                                {{ musique.date }}
+                                            </v-col>
+                                            <v-col align="center" justify="center" cols="12">
+                                                {{ musique.description }}
+                                            </v-col>
+                                            <v-col align="center" justify="center" cols="12">
+                                                <audio class="ccc" :src="musique.musique" loop controls></audio>
+                                            </v-col>
+                                            <v-col align="center" justify="center" cols="6">
+                                                <DeleteMusique :musique="musique" :updateMusique="updateMusique"/>
+
+                                            </v-col>
+                                            <v-col align="center" justify="center" cols="6">
+                                                <EditMusique :musique="musique" :updateMusique="updateMusique"/>
+                                            </v-col>
+                                        </v-row>
+                                    </v-container>
+                                </v-card-actions>
+                            </v-card>
+                        </v-col>
+                    </v-row>
+                </v-container>
+            </v-row>
+
+        </v-container>
+    </div>
 </template>
 
 <style scoped>
-.test {
-    min-height: 100vh;
+.test {   
     background-color: #FEFFFF;
     color: BLACK;
 }
@@ -141,6 +125,11 @@ export default {
     width: 300px;
 }
 
+.ccc {
+    overflow: hidden;
+    width: 100%;
+}
+
 .pulse-anim {
     box-shadow: 0 0 0 0 black;
     animation: pulse 1.3s infinite;
@@ -148,8 +137,10 @@ export default {
 
 .titre {
     text-align: 'center';
-    background: linear-gradient(to right, #FF6F00, #FBE9E7);
-    -webkit-background-clip: text;
+    background: #7CC5CF;
+     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    font-family: 'Permanent Marker', cursive;
+    font-size: 3.75rem
 }
 </style>

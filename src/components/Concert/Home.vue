@@ -1,138 +1,76 @@
 <script>
 import router from 'vue-router'
+import API from './../../api'
+import CardConcert from './CardConcert.vue'
 export default {
     data: () => ({
-        types: ['Places to Be', 'Places to See'],
-        cards: [{
-                nom: 'Reims Arena',
-                date: "10/02/2020",
-                start: "18:00",
-                end: "20:00",
-                place: 9000
-            },
-            {
-                nom: 'La cygalle',
-                date: "10/02/2020",
-                start: "18:00",
-                end: "20:00",
-                place: 5000
-            },
-            {
-                nom: 'Montpelly arena',
-                date: "10/02/2020",
-                start: "18:00",
-                end: "20:00",
-                place: 12000
-            },
-            {
-                nom: 'Lille',
-                date: "10/02/2020",
-                start: "18:00",
-                end: "20:00",
-                place: 800
-            },
-            {
-                nom: 'Caen',
-                date: "10/02/2020",
-                start: "18:00",
-                end: "20:00",
-                place: 3000
-            },
-            {
-                nom: 'Bercy',
-                date: "10/02/2020",
-                start: "18:00",
-                end: "20:00",
-                place: 30000
-            },
-        ],
-        socials: [{
-                icon: 'mdi-facebook',
-                color: 'indigo',
-            },
-            {
-                icon: 'mdi-linkedin',
-                color: 'cyan darken-1',
-            },
-            {
-                icon: 'mdi-instagram',
-                color: 'red lighten-3',
-            },
-        ],
+        concerts: null,
+        concertsActuel: null,
+        load: true,
+        show: false
     }),
-
+    components: { CardConcert},
+    created() {
+        API.getConcert().then((data) => {
+            this.concerts = data
+            this.concertsActuel = data
+            this.load = false
+        })
+    },
     methods: {
         getImage() {
             const min = 550
             const max = 560
 
             return Math.floor(Math.random() * (max - min + 1)) + min
-        },
-        detect() {
-            alert("yaaaaaaaaaaaaaaaaah")
-        },
-        goToHome(){
-          this.$router.push('/')
+        },        
+        goToHome() {
+            this.$router.push('/')
         }
     },
+    props:{
+    concert: Object
+}
 }
 </script>
 <template>
-<div class="test">
-    <v-container fill-height fill-width>
-        <v-row justify="center" align="center">
-            <v-col align="center" justify="center" cols="4">
-            </v-col>
-            <v-col align="center" justify="center" cols="4">
-                <h1 class="titre text-h2">
-                    Concert
-                </h1>
-            </v-col>
-            <v-col align="center" justify="center" cols="1">
-                <v-btn class="ml-2 mt-5" elevation="2" color="warning" @click="goToHome">
-                    <font-awesome-icon icon="house" />
-                </v-btn>
-            </v-col>
-            <v-col align="center" justify="center" cols="3">
-            </v-col>
-        </v-row>
+    <div class="test">
+        <v-container fill-height fill-width>
+            <v-row justify="center" align="center">
+                <v-col align="center" justify="center" cols="4">
+                </v-col>
+                <v-col align="center" justify="center" cols="4">
+                    <h1 class="titre">
+                        Billeterie
+                    </h1>
+                </v-col>              
+                <v-col align="center" justify="center" cols="3">
+                </v-col>
+            </v-row>
+            <v-row justify="center" align="center" v-if="load">
+                <v-col justify="center" align="center" cols="12">
+                    <v-sheet elevation="8">
 
-        <v-row justify="center" align="center">
+                        Chargement des donnnées en cours
 
-            <v-container fluid>
+                    </v-sheet>
+                </v-col>
+            </v-row>
+            <v-row justify="center" align="center" v-else>
 
-                <v-row>
-                    <v-spacer></v-spacer>
-                    <v-col v-for="card in cards" :key="card" cols="12" sm="6" md="4">
-                        <v-card @click="detect()">
-                            <v-img :src="`https://picsum.photos/200/300?image=${getImage()}`" aspect-ratio="1">
+                <v-container fluid>
 
-                            </v-img>
+                    <v-row>
+                        <v-spacer></v-spacer>
+                        <v-col v-for="concert in concertsActuel" :key="concert.id" cols="12" sm="6" md="4">                            
+                            <CardConcert :concert="concert"/>
+                        </v-col>
+                    </v-row>
+                </v-container>
+            </v-row>
 
-                            <v-card-actions class="white justify-center">
-                                <v-container fill-height fill-width>
-                                    <v-row justify="center" align="center">
-
-                                        <v-col align="center" justify="center" cols="12">
-                                            <span class="text-h5 pl-4 pt-4 d-inline-block" v-text="card.nom"></span>
-                                        </v-col>
-                                        <v-col align="center" justify="center" cols="12">
-                                            {{card.date}}
-                                        </v-col>
-                                        <v-col align="center" justify="center" cols="12">
-                                            {{card.start}} - {{card.end}}
-                                        </v-col>
-                                    </v-row>
-                                </v-container>
-                            </v-card-actions>
-                        </v-card>
-                    </v-col>
-                </v-row>
-            </v-container>
-        </v-row>
-
-    </v-container>
-</div>
+        </v-container>
+    </div>
 </template>
 
 <style scoped>
@@ -158,9 +96,10 @@ export default {
 
 .titre {
     text-align: 'center';
-    background: linear-gradient(to right, #FF6F00, #FBE9E7);
+    background: #7CC5CF;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-
+    font-family: 'Permanent Marker', cursive;
+    font-size: 3.75rem
 }
 </style>

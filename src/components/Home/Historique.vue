@@ -9,7 +9,7 @@ export default Vue.extend({
           color: 'orange lighten-3', //orange lighten-3
           icon: 'mdi-star',
           titre: "Création du groupe (2010) ",
-          contenu: "Le groupe prend forme dans un petit village des vosges, grâce à la volonté de 4 musiciens voulant s'associer pour créer une musique unique. "
+          contenu: "Le groupe prend forme dans un petit village des vosges, grâce à la volonté de 4 musiciens voulant s'associer pour créer une musique unique. ",
         },
         {
           color: 'deep-orange lighten-3',
@@ -51,14 +51,22 @@ export default Vue.extend({
 </script>
 
 <template>
-<div>
-     <v-container>
+<div class="test">
+      <v-container>
+        <v-row
+       justify="center"
+        align="center"
+      >    
+             <v-col align="center" justify="center" cols="8" >
+                <v-divider></v-divider>
+             </v-col>
+       </v-row>
        <v-row
        justify="center"
         align="center"
       >    
              <v-col align="center" justify="center" cols="12" >
-                 <h1 class="titre text-h2">Historique</h1>
+                 <h1 class="titre">Historique</h1>
              </v-col>
        </v-row>
    </v-container>
@@ -89,13 +97,32 @@ export default Vue.extend({
         </v-card-title>
         <v-card-text class="white text--primary">
           <p>{{item.contenu}}</p>
-          <v-btn
-            :color="item.color"
-            class="mx-0"
-            outlined
-          >
-            Button
-          </v-btn>
+          <v-img         
+  :src="require('../../Images/groupe.jpg')"
+  contain
+  v-if="i === 0"
+></v-img>
+         <v-img         
+  :src="require('../../Images/Platine.png')"
+  contain
+  v-if="i === 2"
+></v-img>
+<v-img         
+  :src="require('../../Images/first.jpg')"
+  contain
+  v-if="i === 3"
+></v-img>
+<v-img         
+  :src="require('../../Images/lama.jpg')"
+  contain
+  v-if="i === 4"
+></v-img>
+<v-img         
+  :src="require('../../Images/world.jpg')"
+  contain
+  v-if="i === 5"
+></v-img>
+
         </v-card-text>
       </v-card>
     </v-timeline-item>
@@ -110,20 +137,23 @@ export default Vue.extend({
 <style scoped>
 .test {
     min-height: 100vh;
- background-color: #dfd7d7;
+ background-color: #FEFFFF;
  color: black;
 
 }
 
-.change:hover {
+/* .change:hover {
   background-color: green;
-}
+} */
 
 .titre{
   text-align: 'center';
-       background: linear-gradient(to right, #FF6F00, #FBE9E7);
+       background: #7CC5CF;
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
+  font-family: 'Permanent Marker', cursive;
+  font-size: 3.75rem
+
 
 }
 </style>

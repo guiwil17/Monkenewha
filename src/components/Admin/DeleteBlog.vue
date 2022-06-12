@@ -6,19 +6,19 @@
       dialog: false
     }),
      props: {
-       concert: {
+       article: {
          type: Object
        },
-       updateConcert: {
+        updateBlog: {
          type: Function
-       }
+       },
      },
      methods:{
-         deleteConcert(id){
-              API.deleteConcert(id).then((result)=>{
+         deleteArticle(id){
+              API.deleteBlog(id).then((result)=>{
        console.log(result)
-       this.updateConcert()
-       this.dialog  = false
+       this.updateBlog()
+       this.dialog = false
     })
          }
      }
@@ -43,7 +43,7 @@
       </template>
       <v-card>
         <v-card-title>
-          <span class="text-h5">Suppresion du concert</span>
+          <span class="text-h5">Suppresion d'un article</span>
         </v-card-title>
         <v-card-text>
           <v-container>
@@ -53,7 +53,7 @@
                 sm="12"
                 md="12"
               >
-              Vous êtes sur le point de supprimer le concert ayant lieu à {{concert.lieu}}  le {{concert.date}}. 
+              Vous êtes sur le point de supprimer l'article : {{article.titre}} du {{article.date}}. 
               </v-col>
             </v-row>
           </v-container>
@@ -70,7 +70,7 @@
           <v-btn
             color="blue darken-1"
             text
-            @click="deleteConcert(concert.id)"
+            @click="deleteArticle(article.id)"
           >
             Supprimer
           </v-btn>

@@ -1,23 +1,25 @@
 <script setup lang="ts">
+import NavBar from '@/components/navBar.vue'
+import Footer from './components/Home/footer.vue';
+
 </script>
 
 <template>
 <v-app>
-
+<NavBar/>
     <router-view />
+    <Footer/>
     </v-app>
+    
 
 </template>
 
 <style>
 @import '@/assets/base.css';
-
-
-
+@import url('https://fonts.googleapis.com/css2?family=Macondo&family=Permanent+Marker&display=swap');
 header {
   line-height: 1.5;
-  max-height: 100vh;
-}
+ }
 
 .logo {
   display: block;
@@ -38,7 +40,7 @@ a,
 }
 
 nav {
-  width: 100%;
+  min-width: 100%;
   font-size: 12px;
   text-align: center;
   margin-top: 2rem;

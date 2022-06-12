@@ -2,32 +2,57 @@
  import API from './../../api'
 
 const props = defineProps({
-  article: { type: Object, required: true },
-  updateBlog: { type: Function, required: true }
+  updateMusique: { type: Function, required: true }
 })
+
   var dialog = false
   var valid: boolean = true;
 
-var description: string = '' + props.article.description;
-var titre: string = '' + props.article.titre;
+var place: string = '';
+var description: string = '';
+var titre: string = '';
+var musique: string;
+var musiqueUrl: string = "";
 var image: string;
-var imageUrl: string = '' + props.article.img;
-
-var date: Date = props.article.date;
+var imageUrl: string = "";
 
 var champs = [(v: string) => !!v || 'Merci de remplir le champs'];
 
-function editConcert(this: any) {
-     API.editBlog(props.article.id, this.titre, this.description, this.imageUrl).then((result)=>{
+function connect(this: any) {
+     API.addMusique(this.titre, this.musiqueUrl, this.description, this.imageUrl).then((result)=>{
        console.log(result)
-       props.updateBlog()
-        this.dialog = true
+       props.updateMusique()
+       this.titre = ""
+       this.musiqueUrl = ""
+       this.description = ""
+       this.imageUrl = ""
+       this.musique = ""
+       this.image = ""
+       this.dialog = false
     })
-       
+        
 }
 
 
-function change(this:any) {
+function changeMusique(this:any) {
+ if (!this.musique) {
+      return;
+    }
+  else{
+     const reader = new FileReader();
+
+    reader.onload = e => {
+      if(e.target !== null){
+      this.musiqueUrl = e.target.result;
+       console.log(e.target.result)
+
+      }
+    };
+    reader.readAsDataURL(this.musique);
+  }
+}
+
+function changeImage(this:any) {
  if (!this.image) {
       return;
     }
@@ -54,17 +79,17 @@ function change(this:any) {
     >
       <template v-slot:activator="{ on, attrs }">
         <v-btn
-          color="teal"
+          color="orange"
           dark
           v-bind="attrs"
           v-on="on"
         >
-          <font-awesome-icon icon="pen" />
+          +
         </v-btn>
       </template>
       <v-card>
         <v-card-title>
-          <span class="text-h5">Modification de l'article</span>
+          <span class="text-h5">Ajouter une musique</span>
         </v-card-title>
         <v-card-text>
           <v-container>
@@ -72,7 +97,7 @@ function change(this:any) {
               <v-col
                 cols="12"
                 sm="12"
-                md="6"
+                md="12"
               >
                 <v-text-field
                   label="Titre*"
@@ -80,26 +105,40 @@ function change(this:any) {
                   required
                 ></v-text-field>
               </v-col> 
-                    
+                 
              
               <v-col cols="12">
                 <v-textarea
+                v-model="description"
                   label="Description*"
                   required
-                  v-model="description"
                 ></v-textarea>
-              </v-col>                           
+              </v-col>                         
               <v-col
                 cols="12"
                 sm="6"
               >
- <v-file-input  v-model="image" label="Image" accept="image/*" prepend-icon="mdi-camera-image" @change="change(e)"></v-file-input>
+              <v-file-input  v-model="musique" label="Musique" accept="audio/*" prepend-icon="mdi-camera-image" @change="changeMusique(e)"></v-file-input>
+              <audio
+      ref="audio"
+      :src="musiqueUrl"    
+      loop
+      controls
+      id="audio"
+      
+    ></audio>
+              </v-col>
+               <v-col
+                cols="12"
+                sm="6"
+              >
+              <v-file-input  v-model="image" label="Image" accept="image/*" prepend-icon="mdi-camera-image" @change="changeImage(e)"></v-file-input>
               <v-img :src="imageUrl" />
-              
+             
               </v-col>
             </v-row>
           </v-container>
-          <small>*indicates required field </small>
+          <small>*indicates required field</small>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -113,7 +152,7 @@ function change(this:any) {
           <v-btn
             color="blue darken-1"
             text
-           @click="editConcert()"
+            @click="connect"
           >
             Save
           </v-btn>

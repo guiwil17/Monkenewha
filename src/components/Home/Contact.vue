@@ -1,11 +1,12 @@
 <script setup lang="ts">
+import API from '@/api';
 import Vue from 'vue'
 
 var valid = false;
 
 var name: string = '';
 var email: string = '';
-var prenom: string = '';
+var firsName: string = '';
 var contenu: string = '';
 
 var nomPrenomRules = [(v: string) => !!v || 'Merci de remplir le champs'];
@@ -15,8 +16,11 @@ function validate (this: any) {
         console.log( this.$refs.form)
         console.log(this.name)
         console.log(this.email)
-        console.log(this.prenom)
+        console.log(this.firsName)
         console.log(this.contenu)
+        API.contact(this.email, this.contenu, this.name, this.firsName).then((data) => {
+            console.log(data)
+        }).catch((e) => {console.log(e)})
       }
 </script>
 
@@ -24,6 +28,9 @@ function validate (this: any) {
 <div class="test">
     <v-container>
         <v-row justify="center" align="center">
+            <v-col align="center" justify="center" cols="8" >
+                <v-divider></v-divider>
+             </v-col>
             <v-col align="center" justify="center" cols="12">
                 <h1 class="titre">Contact </h1>
             </v-col>
@@ -33,7 +40,7 @@ function validate (this: any) {
         <v-row justify="center" align="center">
             <v-col justify="center" align="center" cols="12" >
                 <v-sheet elevation="8" height="70vh" rounded class="mt-15">
-                    <v-form ref="form" v-model="valid" lazy-validation>
+                    <v-form ref="form" v-model="valid" validation>
                         <v-container>
                             <v-row justify="center" align="center" class="mt-15">
                                 <v-col justify="center" align="center" cols="3">
@@ -47,7 +54,7 @@ function validate (this: any) {
                                     <v-text-field label="Nom" outlined v-model="name" :rules="nomPrenomRules"></v-text-field>
                                 </v-col>
                                 <v-col justify="center" align="center" cols="4">
-                                    <v-text-field label="Prénom" outlined  v-model="prenom" :rules="nomPrenomRules"></v-text-field>
+                                    <v-text-field label="Prénom" outlined  v-model="firsName" :rules="nomPrenomRules"></v-text-field>
                                 </v-col>
 
                                 <v-col justify="center" align="center" cols="8">
@@ -71,8 +78,8 @@ function validate (this: any) {
 
 <style scoped>
 .test {
-    height: 100vh;
-    background-color: #e9e9e9;
+    min-height: 100vh;
+    background-color: #FEFFFF;
     color: black;
 
 }
@@ -82,7 +89,12 @@ function validate (this: any) {
 }
 
 .titre {
-    text-align: 'center';
+     text-align: 'center';
+       background: #7CC5CF;
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+  font-family: 'Permanent Marker', cursive;
+  font-size: 3.75rem
 }
 
 </style>
