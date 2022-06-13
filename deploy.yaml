@@ -1,41 +1,69 @@
-name: deploy-app-on-s3
+name: CI for Vuejs
+
 on:
- push:
+  push:
     branches: [master]
+  pull_request:
+    branches: [master]
+
+env: # environment variables to all the jobs
+  KEY_1: value1
+  KEY_2: value2
+
 jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    env:
-      AWS_S3_BUCKET_NAME: monkenewha.com
-      AWS_CF_DISTRIBUTION_ID: E14FNMWG4D3E6H
+  build:
+    runs-on: ubuntu-18.04
+
     strategy:
       matrix:
-        node-version: [10.x]
+        node-version: [12.16.1]
+
     steps:
-      - uses: actions/checkout@master
-      - name: Use Node.js ${{ matrix.node-version }}
+      - uses: actions/checkout@v1
+
+      - name: Print a greeting
+        env: # environment variables to only this steps
+          MY_VAR: Welcome to my C.I process
+          FIRST_NAME: SOL 
+          LAST_NAME: Guillaume
+        run: |
+          echo $MY_VAR $FIRST_NAME $LAST_NAME.
+
+      - name: Cache node modules
+        uses: actions/cache@v1
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: ~/.npm # npm cache files are stored in `~/.npm` on Linux/macOS
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+
+      - name: Node version ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Install Dependencies
-        run: npm install
-      - name: Build Application
-        run: npm run-script build
-      - uses: guiwil17/Monkenewha@master
-        name: Upload App to S3 Bucket
-        with:
-          args: --follow-symlinks --delete
-        env:
-          AWS_S3_BUCKET: ${{ env.AWS_S3_BUCKET_NAME }}
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: "eu-west-3"
-          SOURCE_DIR: "dist"
-      - name: Create CloudFront Cache Invalidation
-        uses: chetan/invalidate-cloudfront-action@master
-        env:
-          DISTRIBUTION: ${{ env.AWS_CF_DISTRIBUTION_ID }}
-          PATHS: "/*"
-          AWS_REGION: "eu-west-3"
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+      - name: Installing all npm dependencies of specific versions using ci
+        run: npm ci
+
+      - name: Checking for Linting..
+        run: npm run lint
+
+      - name: Checking for build prod and AOT..
+        run: npm run build
+
+      - name: Let me check your test cases..
+        run: npm run test-headless-chrome
+
+      - name: Remove previous instance of junks from s3 buckets
+        run: aws s3 rm --recursive s3://monkenewha.com/
+
+      - name: Deploy to AWS S3 bucket
+        run: aws s3 cp --recursive dist/ s3://monkenewha.com/ --acl public-read
+
+    env: # environment variables to all the steps
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
