@@ -5,7 +5,7 @@ import Footer from './components/Home/footer.vue';
 </script>
 
 <template>
-<v-app>
+<v-app >
 <NavBar/>
     <router-view />
     <Footer/>
@@ -19,6 +19,8 @@ import Footer from './components/Home/footer.vue';
 @import url('https://fonts.googleapis.com/css2?family=Macondo&family=Permanent+Marker&display=swap');
 header {
   line-height: 1.5;
+  height:100%;
+  width:100%;
  }
 
 .logo {

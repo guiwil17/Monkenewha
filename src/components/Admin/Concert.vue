@@ -136,6 +136,7 @@ var active = 3
     text-align: 'center';
     background: #7CC5CF;
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
      font-family: 'Permanent Marker', cursive;
      font-size: 3.75rem

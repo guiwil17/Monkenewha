@@ -20,12 +20,8 @@ import Musique from '@/components/Musique/Home.vue'
     <Contact />  
 </div>
 </template>
-
-
-
 <style scoped>
 .test {
- min-height: 100vh;
  width: 100vw;
 }
 

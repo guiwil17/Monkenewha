@@ -1,53 +1,53 @@
-<script setup lang="ts">
+<script >
 import API from './../../api'
 
-const props = defineProps({
-  updateBlog: { type: Function, required: true }
-})
-var dialogs = false
-var dialog = false
-var valid: boolean = true;
-
-var description: string = '';
-var titre: string = '';
-var image: string;
-var imageUrl: string = "";
-
-var date: Date;
-
-var champs = [(v: string) => !!v || 'Merci de remplir le champs'];
-
-function connect(this: any) {
+export default {
+  data: () => ({
+    dialog: false,
+    valid: true,
+    description: '',
+    titre: '',
+    image: '',
+    imageUrl: '',
+    date: null,
+    dialogs: false,
+    champs: [(v) => !!v || 'Merci de remplir le champs']
+  }),
+  props: {   
+    updateBlog: {
+      type: Function
+    },
+  }, 
+  methods: {
+   connect() {
   console.log("ici")
   API.addBlog(this.titre, this.description, this.date, this.imageUrl).then((result) => {
     console.log(result)
-    props.updateBlog()
+    this.updateBlog()
     this.titre = ""
     this.description = ""
     this.date = ""
     this.imageUrl = ""
     this.dialogs = false
-    console.log(dialogs)
   })
+},
+    change() {
+        if (!this.image) {
+          return;
+        }
+        else {
+          const reader = new FileReader();
 
-}
+          reader.onload = e => {
+            if (e.target !== null) {
+              this.imageUrl = e.target.result;
+              console.log(e.target.result)
 
-
-function change(this: any) {
-  if (!this.image) {
-    return;
-  }
-  else {
-    const reader = new FileReader();
-
-    reader.onload = e => {
-      if (e.target !== null) {
-        this.imageUrl = e.target.result;
-        console.log(e.target.result)
-
+            }
+          };
+          reader.readAsDataURL(this.image);
+        }
       }
-    };
-    reader.readAsDataURL(this.image);
   }
 }
 </script>

@@ -62,11 +62,10 @@
   font-weight: normal;
 }
 
-html, body {
-  min-height: 100vh;
-  min-width: 100wv;
+html, body {  
+  width: 100%;
   color: var(--color-text);
-  background: var(--color-background);
+  background: "white";
   transition: color 0.5s, background-color 0.5s;
   line-height: 1.6;
   font-size: 15px;

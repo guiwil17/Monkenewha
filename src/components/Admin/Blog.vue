@@ -35,7 +35,7 @@ props:{
 </script>
 <template>
 <div class="test">
-    <v-container fill-height fill-width class="title">        
+    <v-container fill-height fill-width >        
         <v-row justify="center" align="center">
               <v-col align="center" justify="center" cols="8" >
                 <v-divider></v-divider>
@@ -45,12 +45,10 @@ props:{
                     Blog
                 </h1>
             </v-col>
-            <v-col align="center" justify="center" cols="12">
+             <v-col align="center" justify="center" cols="12">
                 <AddBlog :updateBlog="updateBlog"></AddBlog>
-            </v-col>
-        </v-row>
-    </v-container>
-    <v-container fill-height fill-width>
+            </v-col>         
+        </v-row>    
           <v-row justify="center" align="center" v-if="load">
             <v-col justify="center" align="center" cols="12">
                 <v-sheet elevation="8">
@@ -60,11 +58,9 @@ props:{
                 </v-sheet>
             </v-col>
         </v-row>
-        <v-row justify="center" align="center" v-else>
-            <v-container>
-                <v-row >
+        <v-row justify="center" align="center" v-else class="l">           
                     <v-spacer></v-spacer>
-                    <v-col v-for="article in articles" :key="article" cols="12" sm="6" md="6" class="list">
+                    <v-col v-for="article in articles" :key="article" cols="12" sm="6" md="6" >
                         <v-card>
                             <v-card-actions class="white justify-center">
                                 <v-container >
@@ -101,9 +97,7 @@ props:{
                                 </v-container>
                             </v-card-actions>
                         </v-card>
-                    </v-col>
-                </v-row>
-            </v-container>
+                    </v-col>               
         </v-row>
 
     </v-container>
@@ -111,9 +105,8 @@ props:{
 </template>
 
 <style scoped>
-.test {
-    min-height: 100vh;
-    max-height: 10000vh;
+.test {  
+    min-height: 130vh;  
     background-color: #FEFFFF;
     color: BLACK;
 }
@@ -121,10 +114,11 @@ props:{
 .buton {
     height: 10vh;
 }
-
-.list{
-    overflow-y:auto
+.l{
+    max-height: 90vh;
+    overflow-y:auto;
 }
+
 .title {
     height: 20vh;
 }
@@ -142,9 +136,9 @@ props:{
     text-align: 'center';
     background: #7CC5CF;
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
      font-family: 'Permanent Marker', cursive;
      font-size: 3.75rem
-
 }
 </style>

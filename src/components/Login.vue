@@ -1,49 +1,54 @@
-<script setup lang="ts">
+<script >
 import AuthenticationService from './../AuthenticationService'
 import axios from 'axios';
 import router from '@/router';
 
 
+export default {
+    data: () => ({
+        dialog: false,
+        valid: true,
+        pseudo: '',
+        password: '',
+        snackbar: false,
+        text: "L'adresse email ou le mot de passe est incorrect ! ",
+        timeout: 4000,
+        dialogs: false,
+        champs: [(v) => !!v || 'Merci de remplir le champs']
+    }),
+    methods: {
+        connect() {
+            AuthenticationService.login(this.pseudo, this.password).then((result) => {
+                console.log("yaaaaaaaaaaaaaaaaaaaaaaaaaah")
+                if (AuthenticationService.isAdmin) {
+                    this.$router.push("/admin")
+                }
+                else {
+                    this.$router.push("/user")
+                }
 
-var valid: boolean = true;
-
-var pseudo: string = '';
-var password: string = '';
-var snackbar: boolean =  false
-var text: string =  "L'adresse email ou le mot de passe est incorrect ! "
-var timeout: number = 4000
-
-var champs = [(v: string) => !!v || 'Merci de remplir le champs'];
-
-function connect(this: any) {
-    AuthenticationService.login(this.pseudo, this.password).then((result) => {       
-        console.log("yaaaaaaaaaaaaaaaaaaaaaaaaaah")
-        if(AuthenticationService.isAdmin){
-        this.$router.push("/admin")
-        }        
-        else{
-            this.$router.push("/user")
+            }).catch(() => {
+                this.snackbar = true
+            })
+        },
+        createAccount() {
+            this.$router.push({ name: 'createAccount' })
+        },
+        lostPassword() {
+            this.$router.push({ name: 'lostPassword' })
+        },
+        goToHome() {
+            this.$router.push({ name: 'home' })
         }
-        
-    }).catch(()=>{
-this.snackbar = true
-    })
-}
-function createAccount(this: any) {
-    router.push({ name: 'createAccount' })
-}
-function lostPassword(this: any) {
-    router.push({ name: 'lostPassword' })
-}
-function goToHome(this: any) {
-    router.push({ name: 'home' })
+
+    }
 }
 </script>
 
 <template>
     <div class="test">
         <v-container fill-height fill-width>
-            <v-row justify="center" align="center">               
+            <v-row justify="center" align="center">
                 <v-col align="center" justify="center" cols="12" class="connexion">
 
                     <v-card class="elevation-12">

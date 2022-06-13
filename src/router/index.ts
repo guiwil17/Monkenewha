@@ -1,7 +1,8 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-import Login from '../views/Login.vue'
+// @ts-ignore
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+import Login from '@/views/Login.vue';
+import HomeView from '../views/HomeView.vue';
 import Admin from '../views/AdminView.vue'
 import createAccount from '../views/CreateAccountView.vue'
 import lostPassword from '../views/lostPasswordView.vue'

@@ -1,58 +1,62 @@
-<script setup lang="ts">
+<script >
 import API from './../../api'
 
-const props = defineProps({
-  updateConcert: { type: Function, required: true }
-})
+export default {
+  data: () => ({
+    dialog: false,
+    valid: true,
+    place: '',
+    description: '',
+    lieu: '',
+    image: null,
+    imageUrl: '',
+    time: '',
+    menu2: false,
+    date: new Date(),
+    champs: [(v) => !!v || 'Merci de remplir le champs']
+  }),
+  props: {
+    concert: {
+      type: Object
+    },
+    updateConcert: {
+      type: Function
+    },
+  },
+  methods: {
+    connect() {
+      console.log(this.time)
+      API.createConcert(this.lieu, this.place, this.description, this.date, this.imageUrl, this.time).then((result) => {
+        console.log(result)
+        this.updateConcert()
+        this.lieu = ""
+        this.place = ""
+        this.description = ""
+        this.date = ""
+        this.imageUrl = ""
+        this.image = ""
+        this.time = ""
+        this.dialog = false
+      })
 
-var dialog = false
-var valid: boolean = true;
-
-var place: string = '';
-var description: string = '';
-var lieu: string = '';
-var image: string;
-var imageUrl: string = "";
-var time:any = null;
-var menu2: boolean = false;
-
-var date: Date;
-
-var champs = [(v: string) => !!v || 'Merci de remplir le champs'];
-
-function connect(this: any) {
-  console.log(this.time)
-  API.createConcert(this.lieu, this.place, this.description, this.date, this.imageUrl, this.time).then((result) => {
-    console.log(result)
-    props.updateConcert()
-    this.lieu = ""
-    this.place = ""
-    this.description = ""
-    this.date = ""
-    this.imageUrl = ""
-    this.image = ""
-    this.time = ""
-    this.dialog = false
-  })
-  
-}
-
-
-function change(this: any) {
-  if (!this.image) {
-    return;
-  }
-  else {
-    const reader = new FileReader();
-
-    reader.onload = e => {
-      if (e.target !== null) {
-        this.imageUrl = e.target.result;
-        console.log(e.target.result)
-
+    },
+    change() {
+      if (!this.image) {
+        return;
       }
-    };
-    reader.readAsDataURL(this.image);
+      else {
+        const reader = new FileReader();
+
+        reader.onload = e => {
+          if (e.target !== null) {
+            this.imageUrl = e.target.result;
+            console.log(e.target.result)
+
+          }
+        };
+        reader.readAsDataURL(this.image);
+      }
+    }
   }
 }
 </script>

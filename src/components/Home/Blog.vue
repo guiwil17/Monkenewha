@@ -23,9 +23,7 @@ export default {
        <v-row
        justify="center"
         align="center"
-      >          
-        <v-col align="center" justify="center" cols="12">
-             </v-col>
+      >                 
              <v-col align="center" justify="center" cols="12">
                  <h1 class="titre">Les dernières nouveautés</h1>                 
              </v-col>             
@@ -109,6 +107,7 @@ min-height: 100vh;
    text-align: 'center';
        background: #7CC5CF;
 	-webkit-background-clip: text;
+  background-clip: text;
 	-webkit-text-fill-color: transparent;
   font-family: 'Permanent Marker', cursive;
   font-size: 3.75rem

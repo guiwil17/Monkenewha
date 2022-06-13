@@ -207,7 +207,7 @@ export default {
                         <hr class="hr" />
                       </v-col>
                       <v-col align="center" justify="center" cols="12">
-                        <v-img :src="concert.img"  max-height="300" min-height="300" max-width="400" min-width="400"></v-img>
+                        <v-img :src="concert.img"  contain max-height="300" min-height="300" max-width="400" min-width="100"></v-img>
                       </v-col>
                       <v-col align="center" justify="center" cols="12">
                         {{ concert.date }}
@@ -264,6 +264,7 @@ export default {
   text-align: 'center';
   background: #7CC5CF;
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   font-family: 'Permanent Marker', cursive;
   font-size: 3.75rem

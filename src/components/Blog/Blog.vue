@@ -23,18 +23,14 @@ load: true
 <template>
 <div class="test">
     <v-container fill-height fill-width>
-        <v-row justify="center" align="center">
-            <v-col align="center" justify="center" cols="4">
-            </v-col>
-            <v-col align="center" justify="center" cols="4">
+        <v-row justify="center" align="center">           
+            <v-col align="center" justify="center" cols="12">
                 <h1 class="titre">
                     Blog
                 </h1>
-            </v-col>            
-            <v-col align="center" justify="center" cols="3">
-            </v-col>
+            </v-col>                      
         </v-row>
- <v-row justify="center" align="center" v-if="load">
+ <v-row justify="center" align="center" v-if="load" class="l">
             <v-col justify="center" align="center" cols="12">
                 <v-sheet elevation="8">
 
@@ -45,11 +41,9 @@ load: true
         </v-row>
         <v-row justify="center" align="center" v-else>
 
-            <v-container fluid >
-
-                <v-row>
-                    <v-spacer></v-spacer>
-                    <v-col v-for="article in articles" :key="article.id" cols="12" sm="12" md="12">
+            <v-container fill-height fill-width class="l">
+                <v-row>                    
+                    <v-col v-for="article in articles" :key="article.id" cols="12" sm="12" md="12" >
                         <v-card >
                              <v-img  :src="article.img" contain class="img"></v-img>        
                           
@@ -84,9 +78,14 @@ load: true
 
 <style scoped>
 .test {
-    min-height: 100vh;
+    height: 120vh;
     background-color: #FEFFFF;
     color: BLACK;
+}
+
+.l{
+    max-height: 100vh;
+    overflow-y:auto;
 }
 
 .buton {
@@ -110,6 +109,7 @@ load: true
     text-align: 'center';
     background: #7CC5CF;
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
      font-family: 'Permanent Marker', cursive;
      font-size: 3.75rem

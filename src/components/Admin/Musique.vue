@@ -61,11 +61,7 @@ export default {
                     </v-sheet>
                 </v-col>
             </v-row>
-            <v-row justify="center" align="center" v-else>
-
-                <v-container fluid>
-
-                    <v-row>
+            <v-row justify="center" align="center" v-else class="l">            
                         <v-spacer></v-spacer>                        
                         <v-col v-for="musique in musiques" :key="musique" cols="12" sm="6" md="3">
                             <v-card>
@@ -101,9 +97,7 @@ export default {
                                     </v-container>
                                 </v-card-actions>
                             </v-card>
-                        </v-col>
-                    </v-row>
-                </v-container>
+                        </v-col>                
             </v-row>
 
         </v-container>
@@ -112,6 +106,7 @@ export default {
 
 <style scoped>
 .test {   
+    min-height: 120vh;
     background-color: #FEFFFF;
     color: BLACK;
 }
@@ -130,6 +125,11 @@ export default {
     width: 100%;
 }
 
+.l{
+    max-height: 100vh;
+    overflow-y:auto;
+}
+
 .pulse-anim {
     box-shadow: 0 0 0 0 black;
     animation: pulse 1.3s infinite;
@@ -139,6 +139,7 @@ export default {
     text-align: 'center';
     background: #7CC5CF;
      -webkit-background-clip: text;
+     background-clip: text;
     -webkit-text-fill-color: transparent;
     font-family: 'Permanent Marker', cursive;
     font-size: 3.75rem

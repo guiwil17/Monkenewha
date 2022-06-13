@@ -14,7 +14,6 @@ import Blog from '@/components/Blog/Blog.vue'
 
 <style scoped>
 .test {
- min-height: 100vh;
  width: 100vw;
 }
 
