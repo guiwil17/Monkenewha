@@ -47,13 +47,13 @@ jobs:
           node-version: ${{ matrix.node-version }}
 
       - name: Installing all npm dependencies of specific versions using ci
-        run: npm ci    
+        run: npm ci 
+      
+      - name: Installing dependencies of project
+        run: npm install     
 
       - name: Checking for build prod and AOT..
-        run: npm run build
-
-      - name: Let me check your test cases..
-        run: npm run test-headless-chrome
+        run: npm run build    
 
       - name: Remove previous instance of junks from s3 buckets
         run: aws s3 rm --recursive s3://monkenewha.com/
