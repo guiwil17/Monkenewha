@@ -1,14 +1,13 @@
 {
   "compilerOptions": {
     "baseUrl": "./",
-    "target": "esnext",
-    "useDefineForClassFields": true,
+    "target": "es5",
     "module": "esnext",
     "moduleResolution": "node",
-    "isolatedModules": true,
+    "isolatedModules": false,
     "strict": false,
     "noImplicitAny": false,
-"allowJs": true,
+    "allowJs": true,
     "jsx": "preserve",
     "sourceMap": true,
     "resolveJsonModule": true,
