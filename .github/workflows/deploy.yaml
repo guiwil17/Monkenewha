@@ -45,9 +45,9 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-                   
+
       - name: Installing dependencies
-        run: npm install     
+        run: npm install && npm i vue-tsc     
 
       - name: Checking for build prod and AOT..
         run: npm run build    
