@@ -1,11 +1,11 @@
 {
-  "name": "addUser",
+  "name": "lostPassword",
   "version": "1.0.0",
-  "description": "Lambda permettant la déconnexion à Monkenewha",
+  "description": "Lambda permettant d'ativer la procédure de mot de passe oublié sur Monkenewha",
   "main": "index.js",
   "scripts": {
-    "build": "tsc &&  7z a -tzip ../../..//addUser.zip .// -xr!node_modules//aws-sdk -xr!node_modules//@types",
-    "clean": "rmdir /Q /S dist && del ../../..//addUser.zip",
+    "build": "tsc &&  7z a -tzip ../../..//lostPassword.zip .// -xr!node_modules//aws-sdk -xr!node_modules//@types",
+    "clean": "rmdir /Q /S dist && del ../../..//lostPassword.zip",
     "local-run": "ts-node index.ts",
     "typecheck": "tsc --noEmit"
   },

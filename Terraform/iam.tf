@@ -195,3 +195,57 @@ resource "aws_lambda_permission" "api_getMusique" {
   principal     = "apigateway.amazonaws.com"
   source_arn    = "${aws_api_gateway_rest_api.api.execution_arn}/*/*/*"
 }
+
+resource "aws_lambda_permission" "api_lostPassword" {
+  statement_id  = "AllowExecutionReadFromAPIGateway"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.lambdaLostPassword.function_name
+  principal     = "apigateway.amazonaws.com"
+  source_arn    = "${aws_api_gateway_rest_api.api.execution_arn}/*/*/*"
+}
+
+resource "aws_lambda_permission" "api_updatePassword" {
+  statement_id  = "AllowExecutionReadFromAPIGateway"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.lambdaUpdatePassword.function_name
+  principal     = "apigateway.amazonaws.com"
+  source_arn    = "${aws_api_gateway_rest_api.api.execution_arn}/*/*/*"
+}
+
+resource "aws_lambda_permission" "api_validationEmail" {
+  statement_id  = "AllowExecutionReadFromAPIGateway"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.lambdaValidationEmail.function_name
+  principal     = "apigateway.amazonaws.com"
+  source_arn    = "${aws_api_gateway_rest_api.api.execution_arn}/*/*/*"
+}
+resource "aws_lambda_permission" "api_reinitialisePassword" {
+  statement_id  = "AllowExecutionReadFromAPIGateway"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.lambdaReinitialisePassword.function_name
+  principal     = "apigateway.amazonaws.com"
+  source_arn    = "${aws_api_gateway_rest_api.api.execution_arn}/*/*/*"
+}
+resource "aws_lambda_permission" "api_updateUser" {
+  statement_id  = "AllowExecutionReadFromAPIGateway"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.lambdaUpdateUser.function_name
+  principal     = "apigateway.amazonaws.com"
+  source_arn    = "${aws_api_gateway_rest_api.api.execution_arn}/*/*/*"
+}
+
+resource "aws_lambda_permission" "api_contact" {
+  statement_id  = "AllowExecutionReadFromAPIGateway"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.lambdaContact.function_name
+  principal     = "apigateway.amazonaws.com"
+  source_arn    = "${aws_api_gateway_rest_api.api.execution_arn}/*/*/*"
+}
+
+resource "aws_lambda_permission" "api_reserveConcert" {
+  statement_id  = "AllowExecutionReadFromAPIGateway"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.lambdaReserveConcert.function_name
+  principal     = "apigateway.amazonaws.com"
+  source_arn    = "${aws_api_gateway_rest_api.api.execution_arn}/*/*/*"
+}

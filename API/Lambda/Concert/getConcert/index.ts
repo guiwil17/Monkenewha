@@ -36,7 +36,7 @@ exports.handler = async (event: any) => {
 
         const params = {
             TableName: DB,
-            AttributesToGet: ['id', 'lieu', 'description', 'date', 'nbrPlace', 'nbrPlaceDispo']
+            AttributesToGet: ['id', 'lieu', 'description', 'date', 'nbrPlace', 'nbrPlaceDispo', 'heureDeb', 'adresse']
         };
 
         var data = await docClient.scan(params).promise();
@@ -54,7 +54,6 @@ exports.handler = async (event: any) => {
                         const r = await s3.getObject(param).promise();
                         console.log("la")
                         if (r.Body !== undefined) {
-                            console.log("ici")
                             data.Items[i].img = r.Body.toString('utf-8')
                         }
                         tab.push(data.Items[i])

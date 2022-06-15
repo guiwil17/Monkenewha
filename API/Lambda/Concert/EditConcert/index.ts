@@ -41,6 +41,8 @@ exports.handler = async (event: any) => {
         const img = body.img;
         const id = body.id;
         const description = body.description;
+        const heureDeb = body.heureDeb;
+        const adresse = body.adresse
 
 
         const ajout_s3 = {
@@ -57,12 +59,17 @@ exports.handler = async (event: any) => {
             Key: {
                 id: id
             },
-            UpdateExpression: "set lieu = :lieu, date = :date, nbrPlace = :nbrPlace, description = :description ",
+            UpdateExpression: "set lieu = :lieu, #newDate = :date, nbrPlace = :nbrPlace, description = :description, heureDeb = :heureDeb, adresse = :adresse",
             ExpressionAttributeValues: {
                 ":lieu": lieu,
                 ":date": date,
                 ":nbrPlace": nbrPlace,
                 ":description": description,
+                ":heureDeb": heureDeb,
+                ":adresse": adresse,
+            },
+            ExpressionAttributeNames: {
+                "#newDate": "date",
             },
         };
 

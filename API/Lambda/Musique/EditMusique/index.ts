@@ -40,32 +40,48 @@ exports.handler = async (event: any) => {
 
         var body = JSON.parse(event.body);
 
-        const key = body.key;
+        const key = body.id;
         const titre = body.titre;
-        const date = body.date;
         const img = body.img;
         const morceau = body.morceau;
+        const description = body.description;
 
-        const ajout_s3 = {
-            Bucket: S3,
-            Key: key,
-            Body: morceau,
-            ContentType: objectType
+        try {
 
+            const ajout_s3 = {
+                Bucket: S3,
+                Key: "Musique/" + key,
+                Body: morceau,
+            }
+
+            await s3.putObject(ajout_s3).promise()
+        }
+        catch (e) {
+            console.log("Erreur musique" + e)
         }
 
-        await s3.putObject(ajout_s3).promise()
+        try {
+            const ajout_s3_jaquette = {
+                Bucket: S3,
+                Key: "Musique/Jaquette/" + key,
+                Body: img,
+            }
+
+            await s3.putObject(ajout_s3_jaquette).promise()
+        }
+        catch (e) {
+            console.log("Erreur jaquette" + e)
+        }
 
         var params = {
             TableName: DB,
             Key: {
                 id: key
             },
-            UpdateExpression: "set titre = :titre, date = :date, img = :img ",
+            UpdateExpression: "set titre = :titre, description = :description ",
             ExpressionAttributeValues: {
                 ":titre": titre,
-                ":date": date,
-                ":img": img,
+                ":description": description,
             },
         };
 

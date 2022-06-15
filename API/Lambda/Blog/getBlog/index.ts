@@ -1,6 +1,7 @@
 import AWS from "aws-sdk";
 import moment from 'moment'
 
+const s3 = new AWS.S3();
 const ddb = new AWS.DynamoDB({ region: "eu-west-3" });
 var docClient = new AWS.DynamoDB.DocumentClient()
 
@@ -41,11 +42,28 @@ exports.handler = async (event: any) => {
 
         var tab = []
         if (data.Items !== undefined) {
+
             for (var i = 0; i < data.Items.length; i++) {
-                tab.push(data.Items[i])
+                try {
+                    var param = {
+                        Bucket: "monkenewha",
+                        Key: "Blog/" + data.Items[i].id
+                    };
+                    const r = await s3.getObject(param).promise();
+                    if (r.Body !== undefined) {
+                        data.Items[i].img = r.Body.toString('utf-8')
+                    }
+                    tab.push(data.Items[i])
+                }
+                catch (e) {
+                    tab.push(data.Items[i])
+                }
             }
+
             console.log(tab)
+
             return messageReturn(200, JSON.stringify({ blog: tab }));
+
         }
         else {
             return messageReturn(200, 'data.Items undefined');

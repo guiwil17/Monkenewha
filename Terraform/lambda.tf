@@ -10,6 +10,7 @@ resource "aws_lambda_function" "lambdaAddUser" {
   environment {
     variables = {
       API_KEY   = var.api_key
+      TOKEN_KEY = var.token_key
       DYNAMO_DB = var.db
     }
   }
@@ -17,6 +18,160 @@ resource "aws_lambda_function" "lambdaAddUser" {
 
 resource "aws_cloudwatch_log_group" "lambdaLogUser" {
   name              = "/aws/lambda/adduser"
+  retention_in_days = 60
+}
+
+resource "aws_lambda_function" "lambdaLostPassword" {
+  function_name    = "lost_password"
+  filename         = "../API/lostPassword.zip"
+  source_code_hash = filebase64sha256("../API/lostPassword.zip")
+  handler          = "dist/index.handler"
+  description      = "Permet de gérer le mot de passe oublié"
+  runtime          = "nodejs12.x"
+  role             = aws_iam_role.lambda_read_role.arn
+  timeout          = 800
+  environment {
+    variables = {
+      TOKEN_KEY = var.token_key
+      DYNAMO_DB = var.db
+    }
+  }
+}
+
+resource "aws_cloudwatch_log_group" "lambdaLogLostPassword" {
+  name              = "/aws/lambda/lostPassword"
+  retention_in_days = 60
+}
+
+resource "aws_lambda_function" "lambdaValidationEmail" {
+  function_name    = "validation_email"
+  filename         = "../API/validationEmail.zip"
+  source_code_hash = filebase64sha256("../API/validationEmail.zip")
+  handler          = "dist/index.handler"
+  description      = "Permet d'activer le compte de l'utilisateur"
+  runtime          = "nodejs12.x"
+  role             = aws_iam_role.lambda_read_role.arn
+  timeout          = 800
+  environment {
+    variables = {
+      TOKEN_KEY = var.token_key
+      DYNAMO_DB = var.db
+    }
+  }
+}
+
+resource "aws_cloudwatch_log_group" "lambdaLogValidationEmail" {
+  name              = "/aws/lambda/validationEmail"
+  retention_in_days = 60
+}
+
+resource "aws_lambda_function" "lambdaReinitialisePassword" {
+  function_name    = "reinitialise_password"
+  filename         = "../API/reinitialisePassword.zip"
+  source_code_hash = filebase64sha256("../API/reinitialisePassword.zip")
+  handler          = "dist/index.handler"
+  description      = "Permet de reinintialiser le mot de passe d'un utilisateur"
+  runtime          = "nodejs12.x"
+  role             = aws_iam_role.lambda_read_role.arn
+  timeout          = 800
+  environment {
+    variables = {
+      TOKEN_KEY = var.token_key
+      DYNAMO_DB = var.db
+    }
+  }
+}
+
+resource "aws_cloudwatch_log_group" "lambdaLogReinitialisePassword" {
+  name              = "/aws/lambda/reinitialisePassword"
+  retention_in_days = 60
+}
+
+resource "aws_lambda_function" "lambdaUpdateUser" {
+  function_name    = "update_user"
+  filename         = "../API/updateUser.zip"
+  source_code_hash = filebase64sha256("../API/updateUser.zip")
+  handler          = "dist/index.handler"
+  description      = "Permet de mettre à jour un utilisateur"
+  runtime          = "nodejs12.x"
+  role             = aws_iam_role.lambda_read_role.arn
+  timeout          = 800
+  environment {
+    variables = {
+      TOKEN_KEY = var.token_key
+      DYNAMO_DB = var.db
+    }
+  }
+}
+
+resource "aws_cloudwatch_log_group" "lambdaLogUpdateUser" {
+  name              = "/aws/lambda/updateUSer"
+  retention_in_days = 60
+}
+
+resource "aws_lambda_function" "lambdaContact" {
+  function_name    = "contact"
+  filename         = "../API/contact.zip"
+  source_code_hash = filebase64sha256("../API/contact.zip")
+  handler          = "dist/index.handler"
+  description      = "Permet d'envoyer un mail de contact'"
+  runtime          = "nodejs12.x"
+  role             = aws_iam_role.lambda_read_role.arn
+  timeout          = 800
+  environment {
+    variables = {
+      TOKEN_KEY = var.token_key
+      DYNAMO_DB = var.db
+    }
+  }
+}
+
+resource "aws_cloudwatch_log_group" "lambdaLogContact" {
+  name              = "/aws/lambda/contact"
+  retention_in_days = 60
+}
+
+resource "aws_lambda_function" "lambdaReserveConcert" {
+  function_name    = "reserve_concert"
+  filename         = "../API/reserveConcert.zip"
+  source_code_hash = filebase64sha256("../API/reserveConcert.zip")
+  handler          = "dist/index.handler"
+  description      = "Permet de reserver un concert"
+  runtime          = "nodejs12.x"
+  role             = aws_iam_role.lambda_read_role.arn
+  timeout          = 800
+  environment {
+    variables = {
+      TOKEN_KEY = var.token_key
+      DYNAMO_DB = var.db
+    }
+  }
+}
+
+resource "aws_cloudwatch_log_group" "lambdaLogReserveConcert" {
+  name              = "/aws/lambda/reserveConcert"
+  retention_in_days = 60
+}
+
+resource "aws_lambda_function" "lambdaUpdatePassword" {
+  function_name    = "update_password"
+  filename         = "../API/updatePassword.zip"
+  source_code_hash = filebase64sha256("../API/updatePassword.zip")
+  handler          = "dist/index.handler"
+  description      = "Permet de changer le mot de passe"
+  runtime          = "nodejs12.x"
+  role             = aws_iam_role.lambda_read_role.arn
+  timeout          = 800
+  environment {
+    variables = {
+      TOKEN_KEY = var.token_key
+      DYNAMO_DB = var.db
+    }
+  }
+}
+
+resource "aws_cloudwatch_log_group" "lambdaUpdatePassword" {
+  name              = "/aws/lambda/updatePassword"
   retention_in_days = 60
 }
 

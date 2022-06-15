@@ -1,5 +1,6 @@
 import AWS from "aws-sdk";
 
+const s3 = new AWS.S3();
 const ddb = new AWS.DynamoDB({ region: "eu-west-3" });
 var docClient = new AWS.DynamoDB.DocumentClient()
 
@@ -33,6 +34,13 @@ exports.handler = async (event: any) => {
         const DB = process.env.DYNAMO_DB || ""
 
         const id = event.id;
+
+        const ajout_s3 = {
+            Bucket: "monkenewha",
+            Key: "Blog/" + id,
+        }
+
+        await s3.deleteObject(ajout_s3).promise()
 
         var params = {
             TableName: DB,

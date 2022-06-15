@@ -126,6 +126,741 @@ resource "aws_api_gateway_integration_response" "options_integration_response_us
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////  LostPassword /////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+resource "aws_api_gateway_resource" "lost_password" {
+  rest_api_id = aws_api_gateway_rest_api.api.id
+  parent_id   = aws_api_gateway_resource.user.id
+  path_part   = "lost_password"
+}
+
+
+resource "aws_api_gateway_method" "lost_password" {
+  rest_api_id      = aws_api_gateway_rest_api.api.id
+  resource_id      = aws_api_gateway_resource.lost_password.id
+  http_method      = "POST"
+  authorization    = "NONE"
+  api_key_required = true
+
+}
+
+
+resource "aws_api_gateway_integration" "lambda_lost_password" {
+  rest_api_id = aws_api_gateway_rest_api.api.id
+  resource_id = aws_api_gateway_resource.lost_password.id
+  http_method = aws_api_gateway_method.lost_password.http_method
+
+  integration_http_method = "POST"
+  type                    = "AWS_PROXY"
+  uri                     = aws_lambda_function.lambdaLostPassword.invoke_arn
+
+}
+
+resource "aws_api_gateway_method_response" "lost_password" {
+  rest_api_id = aws_api_gateway_rest_api.api.id
+  resource_id = aws_api_gateway_resource.lost_password.id
+  http_method = aws_api_gateway_method.lost_password.http_method
+  status_code = 200
+
+  response_models = {
+    "application/json" = "Empty"
+  }
+
+  response_parameters = {
+    "method.response.header.Access-Control-Allow-Headers" = true,
+    "method.response.header.Access-Control-Allow-Methods" = true,
+    "method.response.header.Access-Control-Allow-Origin"  = true
+
+  }
+}
+
+resource "aws_api_gateway_integration_response" "lambda_lost_password" {
+  depends_on  = [aws_api_gateway_integration.lambda_lost_password]
+  rest_api_id = aws_api_gateway_rest_api.api.id
+  resource_id = aws_api_gateway_resource.lost_password.id
+  http_method = aws_api_gateway_method.lost_password.http_method
+  status_code = aws_api_gateway_method_response.lost_password.status_code
+
+}
+
+
+resource "aws_api_gateway_method" "options_method_lost_password" {
+  rest_api_id   = aws_api_gateway_rest_api.api.id
+  resource_id   = aws_api_gateway_resource.lost_password.id
+  http_method   = "OPTIONS"
+  authorization = "NONE"
+}
+resource "aws_api_gateway_method_response" "options_200_lost_password" {
+  rest_api_id = aws_api_gateway_rest_api.api.id
+  resource_id = aws_api_gateway_resource.lost_password.id
+  http_method = aws_api_gateway_method.options_method_lost_password.http_method
+  status_code = 200
+  response_models = {
+    "application/json" = "Empty"
+  }
+  response_parameters = {
+    "method.response.header.Access-Control-Allow-Headers" = true,
+    "method.response.header.Access-Control-Allow-Methods" = true,
+    "method.response.header.Access-Control-Allow-Origin"  = true
+  }
+  depends_on = [aws_api_gateway_method.options_method_lost_password]
+}
+resource "aws_api_gateway_integration" "options_integration_lost_password" {
+  rest_api_id = aws_api_gateway_rest_api.api.id
+  resource_id = aws_api_gateway_resource.lost_password.id
+  http_method = aws_api_gateway_method.options_method_lost_password.http_method
+  type        = "MOCK"
+  request_templates = {
+    "application/json" : "{\"statusCode\": 200}"
+  }
+  depends_on = [aws_api_gateway_method.options_method_lost_password]
+}
+resource "aws_api_gateway_integration_response" "options_integration_response_lost_password" {
+  rest_api_id = aws_api_gateway_rest_api.api.id
+  resource_id = aws_api_gateway_resource.lost_password.id
+  http_method = aws_api_gateway_method.options_method_lost_password.http_method
+  status_code = aws_api_gateway_method_response.options_200_lost_password.status_code
+  response_parameters = {
+    "method.response.header.Access-Control-Allow-Headers" = "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'",
+    "method.response.header.Access-Control-Allow-Methods" = "'GET,OPTIONS,POST,PUT'",
+    "method.response.header.Access-Control-Allow-Origin"  = "'*'"
+  }
+  depends_on = [aws_api_gateway_method_response.options_200_lost_password]
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////  reinitialisePassword /////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+resource "aws_api_gateway_resource" "reinitialise_password" {
+  rest_api_id = aws_api_gateway_rest_api.api.id
+  parent_id   = aws_api_gateway_resource.user.id
+  path_part   = "reinitialise_password"
+}
+
+
+resource "aws_api_gateway_method" "reinitialise_password" {
+  rest_api_id      = aws_api_gateway_rest_api.api.id
+  resource_id      = aws_api_gateway_resource.reinitialise_password.id
+  http_method      = "POST"
+  authorization    = "NONE"
+  api_key_required = true
+
+}
+
+
+resource "aws_api_gateway_integration" "lambda_reinitialise_password" {
+  rest_api_id = aws_api_gateway_rest_api.api.id
+  resource_id = aws_api_gateway_resource.reinitialise_password.id
+  http_method = aws_api_gateway_method.reinitialise_password.http_method
+
+  integration_http_method = "POST"
+  type                    = "AWS_PROXY"
+  uri                     = aws_lambda_function.lambdaReinitialisePassword.invoke_arn
+
+}
+
+resource "aws_api_gateway_method_response" "reinitialise_password" {
+  rest_api_id = aws_api_gateway_rest_api.api.id
+  resource_id = aws_api_gateway_resource.reinitialise_password.id
+  http_method = aws_api_gateway_method.reinitialise_password.http_method
+  status_code = 200
+
+  response_models = {
+    "application/json" = "Empty"
+  }
+
+  response_parameters = {
+    "method.response.header.Access-Control-Allow-Headers" = true,
+    "method.response.header.Access-Control-Allow-Methods" = true,
+    "method.response.header.Access-Control-Allow-Origin"  = true
+
+  }
+}
+
+resource "aws_api_gateway_integration_response" "lambda_reinitialise_password" {
+  depends_on  = [aws_api_gateway_integration.lambda_reinitialise_password]
+  rest_api_id = aws_api_gateway_rest_api.api.id
+  resource_id = aws_api_gateway_resource.reinitialise_password.id
+  http_method = aws_api_gateway_method.reinitialise_password.http_method
+  status_code = aws_api_gateway_method_response.reinitialise_password.status_code
+
+}
+
+
+resource "aws_api_gateway_method" "options_method_reinitialise_password" {
+  rest_api_id   = aws_api_gateway_rest_api.api.id
+  resource_id   = aws_api_gateway_resource.reinitialise_password.id
+  http_method   = "OPTIONS"
+  authorization = "NONE"
+}
+resource "aws_api_gateway_method_response" "options_200_reinitialise_password" {
+  rest_api_id = aws_api_gateway_rest_api.api.id
+  resource_id = aws_api_gateway_resource.reinitialise_password.id
+  http_method = aws_api_gateway_method.options_method_reinitialise_password.http_method
+  status_code = 200
+  response_models = {
+    "application/json" = "Empty"
+  }
+  response_parameters = {
+    "method.response.header.Access-Control-Allow-Headers" = true,
+    "method.response.header.Access-Control-Allow-Methods" = true,
+    "method.response.header.Access-Control-Allow-Origin"  = true
+  }
+  depends_on = [aws_api_gateway_method.options_method_reinitialise_password]
+}
+resource "aws_api_gateway_integration" "options_integration_reinitialise_password" {
+  rest_api_id = aws_api_gateway_rest_api.api.id
+  resource_id = aws_api_gateway_resource.reinitialise_password.id
+  http_method = aws_api_gateway_method.options_method_reinitialise_password.http_method
+  type        = "MOCK"
+  request_templates = {
+    "application/json" : "{\"statusCode\": 200}"
+  }
+  depends_on = [aws_api_gateway_method.options_method_reinitialise_password]
+}
+resource "aws_api_gateway_integration_response" "options_integration_response_reinitialise_password" {
+  rest_api_id = aws_api_gateway_rest_api.api.id
+  resource_id = aws_api_gateway_resource.reinitialise_password.id
+  http_method = aws_api_gateway_method.options_method_reinitialise_password.http_method
+  status_code = aws_api_gateway_method_response.options_200_reinitialise_password.status_code
+  response_parameters = {
+    "method.response.header.Access-Control-Allow-Headers" = "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'",
+    "method.response.header.Access-Control-Allow-Methods" = "'GET,OPTIONS,POST,PUT'",
+    "method.response.header.Access-Control-Allow-Origin"  = "'*'"
+  }
+  depends_on = [aws_api_gateway_method_response.options_200_reinitialise_password]
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////  validationEmail /////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+resource "aws_api_gateway_resource" "validation_email" {
+  rest_api_id = aws_api_gateway_rest_api.api.id
+  parent_id   = aws_api_gateway_resource.user.id
+  path_part   = "validation_email"
+}
+
+
+resource "aws_api_gateway_method" "validation_email" {
+  rest_api_id      = aws_api_gateway_rest_api.api.id
+  resource_id      = aws_api_gateway_resource.validation_email.id
+  http_method      = "POST"
+  authorization    = "NONE"
+  api_key_required = true
+
+}
+
+
+resource "aws_api_gateway_integration" "lambda_validation_email" {
+  rest_api_id = aws_api_gateway_rest_api.api.id
+  resource_id = aws_api_gateway_resource.validation_email.id
+  http_method = aws_api_gateway_method.validation_email.http_method
+
+  integration_http_method = "POST"
+  type                    = "AWS_PROXY"
+  uri                     = aws_lambda_function.lambdaValidationEmail.invoke_arn
+
+}
+
+resource "aws_api_gateway_method_response" "validation_email" {
+  rest_api_id = aws_api_gateway_rest_api.api.id
+  resource_id = aws_api_gateway_resource.validation_email.id
+  http_method = aws_api_gateway_method.validation_email.http_method
+  status_code = 200
+
+  response_models = {
+    "application/json" = "Empty"
+  }
+
+  response_parameters = {
+    "method.response.header.Access-Control-Allow-Headers" = true,
+    "method.response.header.Access-Control-Allow-Methods" = true,
+    "method.response.header.Access-Control-Allow-Origin"  = true
+
+  }
+}
+
+resource "aws_api_gateway_integration_response" "lambda_validation_email" {
+  depends_on  = [aws_api_gateway_integration.lambda_validation_email]
+  rest_api_id = aws_api_gateway_rest_api.api.id
+  resource_id = aws_api_gateway_resource.validation_email.id
+  http_method = aws_api_gateway_method.validation_email.http_method
+  status_code = aws_api_gateway_method_response.validation_email.status_code
+
+}
+
+
+resource "aws_api_gateway_method" "options_method_validation_email" {
+  rest_api_id   = aws_api_gateway_rest_api.api.id
+  resource_id   = aws_api_gateway_resource.validation_email.id
+  http_method   = "OPTIONS"
+  authorization = "NONE"
+}
+resource "aws_api_gateway_method_response" "options_200_validation_email" {
+  rest_api_id = aws_api_gateway_rest_api.api.id
+  resource_id = aws_api_gateway_resource.validation_email.id
+  http_method = aws_api_gateway_method.options_method_validation_email.http_method
+  status_code = 200
+  response_models = {
+    "application/json" = "Empty"
+  }
+  response_parameters = {
+    "method.response.header.Access-Control-Allow-Headers" = true,
+    "method.response.header.Access-Control-Allow-Methods" = true,
+    "method.response.header.Access-Control-Allow-Origin"  = true
+  }
+  depends_on = [aws_api_gateway_method.options_method_validation_email]
+}
+resource "aws_api_gateway_integration" "options_integration_validation_email" {
+  rest_api_id = aws_api_gateway_rest_api.api.id
+  resource_id = aws_api_gateway_resource.validation_email.id
+  http_method = aws_api_gateway_method.options_method_validation_email.http_method
+  type        = "MOCK"
+  request_templates = {
+    "application/json" : "{\"statusCode\": 200}"
+  }
+  depends_on = [aws_api_gateway_method.options_method_validation_email]
+}
+resource "aws_api_gateway_integration_response" "options_integration_response_validation_email" {
+  rest_api_id = aws_api_gateway_rest_api.api.id
+  resource_id = aws_api_gateway_resource.validation_email.id
+  http_method = aws_api_gateway_method.options_method_validation_email.http_method
+  status_code = aws_api_gateway_method_response.options_200_validation_email.status_code
+  response_parameters = {
+    "method.response.header.Access-Control-Allow-Headers" = "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'",
+    "method.response.header.Access-Control-Allow-Methods" = "'GET,OPTIONS,POST,PUT'",
+    "method.response.header.Access-Control-Allow-Origin"  = "'*'"
+  }
+  depends_on = [aws_api_gateway_method_response.options_200_validation_email]
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////  contact /////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+resource "aws_api_gateway_resource" "contact" {
+  rest_api_id = aws_api_gateway_rest_api.api.id
+  parent_id   = aws_api_gateway_rest_api.api.root_resource_id
+  path_part   = "contact"
+}
+
+
+resource "aws_api_gateway_method" "contact" {
+  rest_api_id      = aws_api_gateway_rest_api.api.id
+  resource_id      = aws_api_gateway_resource.contact.id
+  http_method      = "POST"
+  authorization    = "NONE"
+  api_key_required = true
+
+}
+
+
+resource "aws_api_gateway_integration" "lambda_contact" {
+  rest_api_id = aws_api_gateway_rest_api.api.id
+  resource_id = aws_api_gateway_resource.contact.id
+  http_method = aws_api_gateway_method.contact.http_method
+
+  integration_http_method = "POST"
+  type                    = "AWS_PROXY"
+  uri                     = aws_lambda_function.lambdaContact.invoke_arn
+
+}
+
+resource "aws_api_gateway_method_response" "contact" {
+  rest_api_id = aws_api_gateway_rest_api.api.id
+  resource_id = aws_api_gateway_resource.contact.id
+  http_method = aws_api_gateway_method.contact.http_method
+  status_code = 200
+
+  response_models = {
+    "application/json" = "Empty"
+  }
+
+  response_parameters = {
+    "method.response.header.Access-Control-Allow-Headers" = true,
+    "method.response.header.Access-Control-Allow-Methods" = true,
+    "method.response.header.Access-Control-Allow-Origin"  = true
+
+  }
+}
+
+resource "aws_api_gateway_integration_response" "lambda_contact" {
+  depends_on  = [aws_api_gateway_integration.lambda_contact]
+  rest_api_id = aws_api_gateway_rest_api.api.id
+  resource_id = aws_api_gateway_resource.contact.id
+  http_method = aws_api_gateway_method.contact.http_method
+  status_code = aws_api_gateway_method_response.contact.status_code
+
+}
+
+
+resource "aws_api_gateway_method" "options_method_contact" {
+  rest_api_id   = aws_api_gateway_rest_api.api.id
+  resource_id   = aws_api_gateway_resource.contact.id
+  http_method   = "OPTIONS"
+  authorization = "NONE"
+}
+resource "aws_api_gateway_method_response" "options_200_contact" {
+  rest_api_id = aws_api_gateway_rest_api.api.id
+  resource_id = aws_api_gateway_resource.contact.id
+  http_method = aws_api_gateway_method.options_method_contact.http_method
+  status_code = 200
+  response_models = {
+    "application/json" = "Empty"
+  }
+  response_parameters = {
+    "method.response.header.Access-Control-Allow-Headers" = true,
+    "method.response.header.Access-Control-Allow-Methods" = true,
+    "method.response.header.Access-Control-Allow-Origin"  = true
+  }
+  depends_on = [aws_api_gateway_method.options_method_contact]
+}
+resource "aws_api_gateway_integration" "options_integration_contact" {
+  rest_api_id = aws_api_gateway_rest_api.api.id
+  resource_id = aws_api_gateway_resource.contact.id
+  http_method = aws_api_gateway_method.options_method_contact.http_method
+  type        = "MOCK"
+  request_templates = {
+    "application/json" : "{\"statusCode\": 200}"
+  }
+  depends_on = [aws_api_gateway_method.options_method_contact]
+}
+resource "aws_api_gateway_integration_response" "options_integration_response_contact" {
+  rest_api_id = aws_api_gateway_rest_api.api.id
+  resource_id = aws_api_gateway_resource.contact.id
+  http_method = aws_api_gateway_method.options_method_contact.http_method
+  status_code = aws_api_gateway_method_response.options_200_contact.status_code
+  response_parameters = {
+    "method.response.header.Access-Control-Allow-Headers" = "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'",
+    "method.response.header.Access-Control-Allow-Methods" = "'GET,OPTIONS,POST,PUT'",
+    "method.response.header.Access-Control-Allow-Origin"  = "'*'"
+  }
+  depends_on = [aws_api_gateway_method_response.options_200_contact]
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////  reserveConcert /////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+resource "aws_api_gateway_resource" "reserve_concert" {
+  rest_api_id = aws_api_gateway_rest_api.api.id
+  parent_id   = aws_api_gateway_rest_api.api.root_resource_id
+  path_part   = "reserve_concert"
+}
+
+
+resource "aws_api_gateway_method" "reserve_concert" {
+  rest_api_id      = aws_api_gateway_rest_api.api.id
+  resource_id      = aws_api_gateway_resource.reserve_concert.id
+  http_method      = "POST"
+  authorization    = "NONE"
+  api_key_required = true
+
+}
+
+
+resource "aws_api_gateway_integration" "lambda_reserve_concert" {
+  rest_api_id = aws_api_gateway_rest_api.api.id
+  resource_id = aws_api_gateway_resource.reserve_concert.id
+  http_method = aws_api_gateway_method.reserve_concert.http_method
+
+  integration_http_method = "POST"
+  type                    = "AWS_PROXY"
+  uri                     = aws_lambda_function.lambdaReserveConcert.invoke_arn
+
+}
+
+resource "aws_api_gateway_method_response" "reserve_concert" {
+  rest_api_id = aws_api_gateway_rest_api.api.id
+  resource_id = aws_api_gateway_resource.reserve_concert.id
+  http_method = aws_api_gateway_method.reserve_concert.http_method
+  status_code = 200
+
+  response_models = {
+    "application/json" = "Empty"
+  }
+
+  response_parameters = {
+    "method.response.header.Access-Control-Allow-Headers" = true,
+    "method.response.header.Access-Control-Allow-Methods" = true,
+    "method.response.header.Access-Control-Allow-Origin"  = true
+
+  }
+}
+
+resource "aws_api_gateway_integration_response" "lambda_reserve_concert" {
+  depends_on  = [aws_api_gateway_integration.lambda_reserve_concert]
+  rest_api_id = aws_api_gateway_rest_api.api.id
+  resource_id = aws_api_gateway_resource.reserve_concert.id
+  http_method = aws_api_gateway_method.reserve_concert.http_method
+  status_code = aws_api_gateway_method_response.reserve_concert.status_code
+
+}
+
+
+resource "aws_api_gateway_method" "options_method_reserve_concert" {
+  rest_api_id   = aws_api_gateway_rest_api.api.id
+  resource_id   = aws_api_gateway_resource.reserve_concert.id
+  http_method   = "OPTIONS"
+  authorization = "NONE"
+}
+resource "aws_api_gateway_method_response" "options_200_reserve_concert" {
+  rest_api_id = aws_api_gateway_rest_api.api.id
+  resource_id = aws_api_gateway_resource.reserve_concert.id
+  http_method = aws_api_gateway_method.options_method_reserve_concert.http_method
+  status_code = 200
+  response_models = {
+    "application/json" = "Empty"
+  }
+  response_parameters = {
+    "method.response.header.Access-Control-Allow-Headers" = true,
+    "method.response.header.Access-Control-Allow-Methods" = true,
+    "method.response.header.Access-Control-Allow-Origin"  = true
+  }
+  depends_on = [aws_api_gateway_method.options_method_reserve_concert]
+}
+resource "aws_api_gateway_integration" "options_integration_reserve_concert" {
+  rest_api_id = aws_api_gateway_rest_api.api.id
+  resource_id = aws_api_gateway_resource.reserve_concert.id
+  http_method = aws_api_gateway_method.options_method_reserve_concert.http_method
+  type        = "MOCK"
+  request_templates = {
+    "application/json" : "{\"statusCode\": 200}"
+  }
+  depends_on = [aws_api_gateway_method.options_method_reserve_concert]
+}
+resource "aws_api_gateway_integration_response" "options_integration_response_reserve_concert" {
+  rest_api_id = aws_api_gateway_rest_api.api.id
+  resource_id = aws_api_gateway_resource.reserve_concert.id
+  http_method = aws_api_gateway_method.options_method_reserve_concert.http_method
+  status_code = aws_api_gateway_method_response.options_200_reserve_concert.status_code
+  response_parameters = {
+    "method.response.header.Access-Control-Allow-Headers" = "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'",
+    "method.response.header.Access-Control-Allow-Methods" = "'GET,OPTIONS,POST,PUT'",
+    "method.response.header.Access-Control-Allow-Origin"  = "'*'"
+  }
+  depends_on = [aws_api_gateway_method_response.options_200_reserve_concert]
+}
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////  updatePassword /////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+resource "aws_api_gateway_resource" "update_password" {
+  rest_api_id = aws_api_gateway_rest_api.api.id
+  parent_id   = aws_api_gateway_resource.user.id
+  path_part   = "update_password"
+}
+
+
+resource "aws_api_gateway_method" "update_password" {
+  rest_api_id      = aws_api_gateway_rest_api.api.id
+  resource_id      = aws_api_gateway_resource.update_password.id
+  http_method      = "POST"
+  authorization    = "NONE"
+  api_key_required = true
+
+}
+
+
+resource "aws_api_gateway_integration" "lambda_update_password" {
+  rest_api_id = aws_api_gateway_rest_api.api.id
+  resource_id = aws_api_gateway_resource.update_password.id
+  http_method = aws_api_gateway_method.update_password.http_method
+
+  integration_http_method = "POST"
+  type                    = "AWS_PROXY"
+  uri                     = aws_lambda_function.lambdaUpdatePassword.invoke_arn
+
+}
+
+resource "aws_api_gateway_method_response" "update_password" {
+  rest_api_id = aws_api_gateway_rest_api.api.id
+  resource_id = aws_api_gateway_resource.update_password.id
+  http_method = aws_api_gateway_method.update_password.http_method
+  status_code = 200
+
+  response_models = {
+    "application/json" = "Empty"
+  }
+
+  response_parameters = {
+    "method.response.header.Access-Control-Allow-Headers" = true,
+    "method.response.header.Access-Control-Allow-Methods" = true,
+    "method.response.header.Access-Control-Allow-Origin"  = true
+
+  }
+}
+
+resource "aws_api_gateway_integration_response" "lambda_update_password" {
+  depends_on  = [aws_api_gateway_integration.lambda_update_password]
+  rest_api_id = aws_api_gateway_rest_api.api.id
+  resource_id = aws_api_gateway_resource.update_password.id
+  http_method = aws_api_gateway_method.update_password.http_method
+  status_code = aws_api_gateway_method_response.update_password.status_code
+
+}
+
+
+resource "aws_api_gateway_method" "options_method_update_password" {
+  rest_api_id   = aws_api_gateway_rest_api.api.id
+  resource_id   = aws_api_gateway_resource.update_password.id
+  http_method   = "OPTIONS"
+  authorization = "NONE"
+}
+resource "aws_api_gateway_method_response" "options_200_update_password" {
+  rest_api_id = aws_api_gateway_rest_api.api.id
+  resource_id = aws_api_gateway_resource.update_password.id
+  http_method = aws_api_gateway_method.options_method_update_password.http_method
+  status_code = 200
+  response_models = {
+    "application/json" = "Empty"
+  }
+  response_parameters = {
+    "method.response.header.Access-Control-Allow-Headers" = true,
+    "method.response.header.Access-Control-Allow-Methods" = true,
+    "method.response.header.Access-Control-Allow-Origin"  = true
+  }
+  depends_on = [aws_api_gateway_method.options_method_update_password]
+}
+resource "aws_api_gateway_integration" "options_integration_update_password" {
+  rest_api_id = aws_api_gateway_rest_api.api.id
+  resource_id = aws_api_gateway_resource.update_password.id
+  http_method = aws_api_gateway_method.options_method_update_password.http_method
+  type        = "MOCK"
+  request_templates = {
+    "application/json" : "{\"statusCode\": 200}"
+  }
+  depends_on = [aws_api_gateway_method.options_method_update_password]
+}
+resource "aws_api_gateway_integration_response" "options_integration_response_update_password" {
+  rest_api_id = aws_api_gateway_rest_api.api.id
+  resource_id = aws_api_gateway_resource.update_password.id
+  http_method = aws_api_gateway_method.options_method_update_password.http_method
+  status_code = aws_api_gateway_method_response.options_200_update_password.status_code
+  response_parameters = {
+    "method.response.header.Access-Control-Allow-Headers" = "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'",
+    "method.response.header.Access-Control-Allow-Methods" = "'GET,OPTIONS,POST,PUT'",
+    "method.response.header.Access-Control-Allow-Origin"  = "'*'"
+  }
+  depends_on = [aws_api_gateway_method_response.options_200_update_password]
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////  updateUSer /////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+resource "aws_api_gateway_resource" "update_user" {
+  rest_api_id = aws_api_gateway_rest_api.api.id
+  parent_id   = aws_api_gateway_resource.user.id
+  path_part   = "update_user"
+}
+
+
+resource "aws_api_gateway_method" "update_user" {
+  rest_api_id      = aws_api_gateway_rest_api.api.id
+  resource_id      = aws_api_gateway_resource.update_user.id
+  http_method      = "POST"
+  authorization    = "NONE"
+  api_key_required = true
+
+}
+
+
+resource "aws_api_gateway_integration" "lambda_update_user" {
+  rest_api_id = aws_api_gateway_rest_api.api.id
+  resource_id = aws_api_gateway_resource.update_user.id
+  http_method = aws_api_gateway_method.update_user.http_method
+
+  integration_http_method = "POST"
+  type                    = "AWS_PROXY"
+  uri                     = aws_lambda_function.lambdaUpdateUser.invoke_arn
+
+}
+
+resource "aws_api_gateway_method_response" "update_user" {
+  rest_api_id = aws_api_gateway_rest_api.api.id
+  resource_id = aws_api_gateway_resource.update_user.id
+  http_method = aws_api_gateway_method.update_user.http_method
+  status_code = 200
+
+  response_models = {
+    "application/json" = "Empty"
+  }
+
+  response_parameters = {
+    "method.response.header.Access-Control-Allow-Headers" = true,
+    "method.response.header.Access-Control-Allow-Methods" = true,
+    "method.response.header.Access-Control-Allow-Origin"  = true
+
+  }
+}
+
+resource "aws_api_gateway_integration_response" "lambda_update_user" {
+  depends_on  = [aws_api_gateway_integration.lambda_update_user]
+  rest_api_id = aws_api_gateway_rest_api.api.id
+  resource_id = aws_api_gateway_resource.update_user.id
+  http_method = aws_api_gateway_method.update_user.http_method
+  status_code = aws_api_gateway_method_response.update_user.status_code
+
+}
+
+
+resource "aws_api_gateway_method" "options_method_update_user" {
+  rest_api_id   = aws_api_gateway_rest_api.api.id
+  resource_id   = aws_api_gateway_resource.update_user.id
+  http_method   = "OPTIONS"
+  authorization = "NONE"
+}
+resource "aws_api_gateway_method_response" "options_200_update_user" {
+  rest_api_id = aws_api_gateway_rest_api.api.id
+  resource_id = aws_api_gateway_resource.update_user.id
+  http_method = aws_api_gateway_method.options_method_update_user.http_method
+  status_code = 200
+  response_models = {
+    "application/json" = "Empty"
+  }
+  response_parameters = {
+    "method.response.header.Access-Control-Allow-Headers" = true,
+    "method.response.header.Access-Control-Allow-Methods" = true,
+    "method.response.header.Access-Control-Allow-Origin"  = true
+  }
+  depends_on = [aws_api_gateway_method.options_method_update_user]
+}
+resource "aws_api_gateway_integration" "options_integration_update_user" {
+  rest_api_id = aws_api_gateway_rest_api.api.id
+  resource_id = aws_api_gateway_resource.update_user.id
+  http_method = aws_api_gateway_method.options_method_update_user.http_method
+  type        = "MOCK"
+  request_templates = {
+    "application/json" : "{\"statusCode\": 200}"
+  }
+  depends_on = [aws_api_gateway_method.options_method_update_user]
+}
+resource "aws_api_gateway_integration_response" "options_integration_response_update_user" {
+  rest_api_id = aws_api_gateway_rest_api.api.id
+  resource_id = aws_api_gateway_resource.update_user.id
+  http_method = aws_api_gateway_method.options_method_update_user.http_method
+  status_code = aws_api_gateway_method_response.options_200_update_user.status_code
+  response_parameters = {
+    "method.response.header.Access-Control-Allow-Headers" = "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'",
+    "method.response.header.Access-Control-Allow-Methods" = "'GET,OPTIONS,POST,PUT'",
+    "method.response.header.Access-Control-Allow-Origin"  = "'*'"
+  }
+  depends_on = [aws_api_gateway_method_response.options_200_update_user]
+}
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////  Concert /////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -1070,7 +1805,9 @@ resource "aws_api_gateway_integration" "resource_integration_getMusique" {
   # }
   request_templates = {
     "application/json" = <<EOF
-    {"key":  "$input.params('key')"}
+    {"id":  "$input.params('id')",
+    "test":  "$input.params('test')"
+    }
     EOF  
   }
 }
@@ -1826,6 +2563,8 @@ resource "aws_api_gateway_deployment" "apideploy" {
     aws_api_gateway_method.getMusique,
     aws_api_gateway_method.list_musique,
     aws_api_gateway_method.delete_musique,
+    aws_api_gateway_method.lost_password,
+    aws_api_gateway_method.update_password,
     aws_api_gateway_integration_response.lambda_add_user,
     aws_api_gateway_integration_response.lambda_login,
     aws_api_gateway_integration_response.lambda_logout,

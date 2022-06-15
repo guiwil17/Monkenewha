@@ -38,29 +38,39 @@ exports.handler = async (event: any) => {
 
         var body = JSON.parse(event.body);
 
-        const key = body.key;
+        const id = body.id;
         const titre = body.titre;
         const date = body.date;
         const img = body.img;
         const morceau = body.morceau;
+        const description = body.description;
+
 
         const ajout_s3 = {
             Bucket: S3,
-            Key: key,
-            Body: morceau,
-            ContentType: objectType
-
+            Key: 'Musique/' + id,
+            Body: morceau
         }
 
         await s3.putObject(ajout_s3).promise()
 
+        const ajout_s3_image = {
+            Bucket: S3,
+            Key: 'Musique/Jaquette/' + id,
+            Body: img
+        }
+
+        await s3.putObject(ajout_s3_image).promise()
+
         const item = {
             TableName: DB,
             Item: {
-                id: { S: key },
+                id: { S: id },
                 titre: { S: titre },
                 date: { S: date },
-                img: { S: img }
+                musique: { S: "" },
+                img: { S: "" },
+                description: { S: description }
             },
             ConditionExpression: 'attribute_not_exists(id)',
         };

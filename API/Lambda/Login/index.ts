@@ -1,6 +1,5 @@
 import AWS from "aws-sdk";
 import jwt from 'jsonwebtoken'
-
 const ddb = new AWS.DynamoDB({ region: "eu-west-3" });
 var docClient = new AWS.DynamoDB.DocumentClient()
 
@@ -61,14 +60,28 @@ exports.handler = async (event: any) => {
                 }
                 await docClient.update(UpdateParams).promise()
 
-                const retour = {
-                    token: token
+                var paramsGet = {
+                    TableName: 'user',
+                    Key: {
+                        'email': { S: email }
+                    },
+                    ProjectionExpression: 'email, isAdmin, isActif, #newName, firstName, adresse, concert',
+                    ExpressionAttributeNames: {
+                        '#newName': 'name'
+                    }
+                };
+                var data = await ddb.getItem(paramsGet).promise();
+
+                var user = {}
+                if (data.Item !== undefined) {
+                    const newUser = { email: data.Item.email.S, isAdmin: data.Item.isAdmin.BOOL, isActif: data.Item.isActif.BOOL, name: data.Item.name.S, firstName: data.Item.firstName.S, adresse: data.Item.adresse.S, concert: data.Item.concert.S }
+                    user = newUser;
                 }
 
-                return messageReturn(200, JSON.stringify(retour));
+                return messageReturn(200, JSON.stringify(user));
             }
             else {
-                return messageReturn(200, "Aucun utilisateur trouvé")
+                return messageReturn(400, "Aucun utilisateur trouvé")
             }
 
         }

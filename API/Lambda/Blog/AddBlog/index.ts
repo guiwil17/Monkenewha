@@ -1,5 +1,6 @@
 import AWS from "aws-sdk";
 
+const s3 = new AWS.S3();
 const ddb = new AWS.DynamoDB({ region: "eu-west-3" });
 var docClient = new AWS.DynamoDB.DocumentClient()
 
@@ -38,6 +39,14 @@ exports.handler = async (event: any) => {
         const img = body.img;
         const timestamp = body.timestamp;
 
+        const ajout_s3 = {
+            Bucket: "monkenewha",
+            Key: "Blog/" + timestamp,
+            Body: img,
+
+        }
+        await s3.putObject(ajout_s3).promise()
+
         const item = {
             TableName: DB,
             Item: {
@@ -45,7 +54,7 @@ exports.handler = async (event: any) => {
                 titre: { S: titre },
                 date: { S: date },
                 description: { S: description },
-                img: { S: img },
+                img: { S: "" },
             },
             ConditionExpression: 'attribute_not_exists(id)',
         };

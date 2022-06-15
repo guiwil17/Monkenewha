@@ -36,20 +36,23 @@ exports.handler = async (event: any) => {
 
         var params = {
             Bucket: S3,
-            Delimiter: '/'
+            Delimiter: '/',
+            Prefix: 'Musique/'
         }
 
         const fichiers = await s3.listObjects(params).promise();
         if (fichiers.Contents !== undefined) {
             var tab = []
             for (var i = 0; i < fichiers.Contents.length; i++) {
+                console.log(fichiers.Contents[i])
                 if (fichiers.Contents[i] !== undefined) {
                     if (fichiers.Contents[i].Key !== undefined) {
                         var res = fichiers.Contents[i].Key || ""
-                        tab.push(res)
+                        tab.push(res.replace('Musique/', ''))
                     }
                 }
             }
+            console.log(fichiers.Contents)
             return messageReturn(200, JSON.stringify({ "value": tab }));
         }
         else

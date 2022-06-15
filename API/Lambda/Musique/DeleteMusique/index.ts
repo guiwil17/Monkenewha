@@ -35,20 +35,42 @@ exports.handler = async (event: any) => {
         const S3 = process.env.BUCKET || ""
         const DB = process.env.DYNAMO_DB || ""
 
-        const key = event.key;
+        const id = event.id;
 
+        console.log(id)
+        console.log(S3)
+        console.log(DB)
 
-        var params = {
-            Bucket: S3,
-            Key: key
+        try {
+            var params = {
+                Bucket: S3,
+                Key: "Musique/" + id
+            }
+
+            await s3.deleteObject(params).promise()
+        }
+        catch (e) {
+            console.log("Delete Musique" + e)
         }
 
-        await s3.deleteObject(params)
+        try {
+            var params_jaquette = {
+                Bucket: S3,
+                Key: "Musique/Jaquette/" + id
+            }
+
+            await s3.deleteObject(params_jaquette).promise()
+
+        }
+        catch (e) {
+            console.log("Delete Jaquette" + e)
+        }
+
 
         var param = {
             TableName: DB,
             Key: {
-                "id": key
+                "id": id
             }
         };
 

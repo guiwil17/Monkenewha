@@ -1,0 +1,21 @@
+{
+  "name": "validationEmail",
+  "version": "1.0.0",
+  "description": "Lambda permettant de valider l'email de l'utilisateur de Monkenewha",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc &&  7z a -tzip ../../..//validationEmail.zip .// -xr!node_modules//aws-sdk -xr!node_modules//@types",
+    "clean": "rmdir /Q /S dist && del ../../..//validationEmail.zip",
+    "local-run": "ts-node index.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.1104.0",
+    "jsonwebtoken": "^8.5.1"
+  },
+  "devDependencies": {
+    "@types/jsonwebtoken": "^8.5.5"
+  }
+}

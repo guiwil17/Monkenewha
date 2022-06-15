@@ -40,7 +40,9 @@ exports.handler = async (event: any) => {
         const img = body.img;
         const description = body.description;
         const nbrPlaceDispo = body.nbrPlaceDispo;
+        const heureDeb = body.heureDeb;
         const timestamp = body.timestamp;
+        const adresse = body.adresse;
 
         const ajout_s3 = {
             Bucket: "monkenewha",
@@ -56,10 +58,12 @@ exports.handler = async (event: any) => {
             Item: {
                 id: { S: timestamp },
                 lieu: { S: lieu },
+                adresse: { S: adresse },
                 date: { S: date },
                 nbrPlace: { S: nbrPlace },
                 nbrPlaceDispo: { S: nbrPlaceDispo },
                 description: { S: description },
+                heureDeb: { S: heureDeb },
                 img: { S: "" }
             },
             ConditionExpression: 'attribute_not_exists(id)',

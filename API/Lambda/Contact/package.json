@@ -1,11 +1,11 @@
 {
-  "name": "addUser",
+  "name": "contact",
   "version": "1.0.0",
-  "description": "Lambda permettant la déconnexion à Monkenewha",
+  "description": "Lambda permettant l'envoie d'email de contact à Monkenewha",
   "main": "index.js",
   "scripts": {
-    "build": "tsc &&  7z a -tzip ../../..//addUser.zip .// -xr!node_modules//aws-sdk -xr!node_modules//@types",
-    "clean": "rmdir /Q /S dist && del ../../..//addUser.zip",
+    "build": "tsc &&  7z a -tzip ../..//contact.zip .// -xr!node_modules//aws-sdk -xr!node_modules//@types",
+    "clean": "rmdir /Q /S dist && del ../..//contact.zip",
     "local-run": "ts-node index.ts",
     "typecheck": "tsc --noEmit"
   },

@@ -1,5 +1,4 @@
 <script  setup lang="ts">
-export{}
 import axios from 'axios';
 
 
